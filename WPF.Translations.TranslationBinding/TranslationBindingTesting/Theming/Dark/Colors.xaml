@@ -1,0 +1,395 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- 
+        Custom Controls 
+    -->
+    <Color x:Key="RoundableToggleButtonStyle.IsChecked.Border.Color">#FF505050</Color>
+
+    <!-- 
+        WPF Controls
+    -->
+    <Color x:Key="Accent.Color">#FF007BFF</Color>
+
+    <Color x:Key="ArrowPath.Background.Color">#FFFFFFFF</Color>
+    <Color x:Key="ArrowPath.Border.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="Button.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="Button.Border.Color">#FF707070</Color>
+    <Color x:Key="Button.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="Button.IsDefault.Border.Color">#FF007BFF</Color>
+    <Color x:Key="Button.MouseOver.Background.Color">#77525252</Color>
+    <Color x:Key="Button.MouseOver.Border.Color">#FFAAAAAA</Color>
+    <Color x:Key="Button.Pressed.Background.Color">#770F0F0F</Color>
+    <Color x:Key="Button.Pressed.Border.Color">#55AAAAAA</Color>
+    <Color x:Key="Button.Disabled.Background.Color">#773D3D3D</Color>
+    <Color x:Key="Button.Disabled.Border.Color">#FF3D3D3D</Color>
+    <Color x:Key="Button.Disabled.Foreground.Color">#FF7D7D7D</Color>
+
+    <Color x:Key="Calendar.Background.GradientStop1.Color">#FF222222</Color>
+    <Color x:Key="Calendar.Background.GradientStop2.Color">#FF212121</Color>
+    <Color x:Key="Calendar.Background.GradientStop3.Color">#FF202020</Color>
+    <Color x:Key="Calendar.Background.GradientStop4.Color">#FF1F1F1F</Color>
+    <Color x:Key="Calendar.Border.GradientStop1.Color">#FF737373</Color>
+    <Color x:Key="Calendar.Border.GradientStop2.Color">#FF727272</Color>
+    <Color x:Key="Calendar.Border.GradientStop3.Color">#FF717171</Color>
+    <Color x:Key="Calendar.Border.GradientStop4.Color">#FF707070</Color>
+    <Color x:Key="Calendar.Foreground.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="CalendarButton.Background.Color">#88007BFF</Color>
+    <Color x:Key="CalendarButton.FocusVisual.Border.Color">#FFFFFFFF</Color>
+    <Color x:Key="CalendarButton.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="CalendarButton.Inactive.Foreground.Color">#FF7D7D7D</Color>
+
+    <Color x:Key="CalendarDayButton.Blackout.Background.Color">#FF000000</Color>
+    <Color x:Key="CalendarDayButton.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="CalendarDayButton.Inactive.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="CalendarDayButton.Today.Background.Color">#55007BFF</Color>
+    <Color x:Key="CalendarDayButton.Today.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="CalendarDayButton.Today.Highlight.Background.Color">#88007BFF</Color>
+    <Color x:Key="CalendarDayButton.Today.Selected.Background.Color">#AA007BFF</Color>
+
+    <Color x:Key="CalendarItem.Root.Disabled.Background.Color">#AA444444</Color>
+    <Color x:Key="CalendarItem.Inner.Border.Color">#FF2F2F2F</Color>
+    <Color x:Key="CalendarItem.HeaderButton.Background.Color">#FF007BFF</Color>
+    <Color x:Key="CalendarItem.HeaderButton.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="CalendarItem.HeaderButton.Next.Background.Color">#FFFFFFFF</Color>
+    <Color x:Key="CalendarItem.HeaderButton.Previous.Background.Color">#FFFFFFFF</Color>
+    <Color x:Key="CalendarItem.HeaderButton.Rectangle.Background.Color">#00000000</Color>
+
+    <Color x:Key="ComboBox.Background.GradientStop1.Color">#FF4F4F4F</Color>
+    <Color x:Key="ComboBox.Background.GradientStop2.Color">#FF4F4F4F</Color>
+    <Color x:Key="ComboBox.Border.Color">#FF4F4F4F</Color>
+    <Color x:Key="ComboBox.Disabled.Background.Color">#773D3D3D</Color>
+    <Color x:Key="ComboBox.Disabled.Border.Color">#FF4F4F4F</Color>
+    <Color x:Key="ComboBox.Disabled.Foreground.Color">#773D3D3D</Color>
+    <Color x:Key="ComboBox.Disabled.Editable.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="ComboBox.Disabled.Glyph.Color">#FF444444</Color>
+    <Color x:Key="ComboBox.DropDown.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="ComboBox.DropDown.Border.Color">#FF5F5F5F</Color>
+    <Color x:Key="ComboBox.Editable.Background.Color">#FF4F4F4F</Color>
+    <Color x:Key="ComboBox.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="ComboBox.Glyph.Color">#FFFFFFFF</Color>
+    <Color x:Key="ComboBox.MouseOver.Background.GradientStop1.Color">#FF1F1F1F</Color>
+    <Color x:Key="ComboBox.MouseOver.Background.GradientStop2.Color">#FF1F1F1F</Color>
+    <Color x:Key="ComboBox.MouseOver.Editable.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="ComboBox.MouseOver.Editable.Border.Color">#FFCCCCCC</Color>
+    <Color x:Key="ComboBox.MouseOver.Border.Color">#FFCCCCCC</Color>
+
+    <Color x:Key="ComboBoxItem.Background.Color">#00000000</Color>
+    <Color x:Key="ComboBoxItem.Border.Color">#00000000</Color>
+    <Color x:Key="ComboBoxItem.Disabled.Foreground.Color">#FF808080</Color>
+    <Color x:Key="ComboBoxItem.ItemsviewHover.Background.Color">#77525252</Color>
+    <Color x:Key="ComboBoxItem.ItemsviewHover.Border.Color">#FFAAAAAA</Color>
+    <Color x:Key="ComboBoxItem.ItemsviewSelected.Background.Color">#3D007BFF</Color>
+    <Color x:Key="ComboBoxItem.ItemsviewSelected.Border.Color">#BB007BFF</Color>
+    <Color x:Key="ComboBoxItem.ItemsviewSelectedHover.Background.Color">#77007BFF</Color>
+    <Color x:Key="ComboBoxItem.ItemsviewSelectedHover.Border.Color">#FF007BFF</Color>
+
+    <Color x:Key="ContextMenu.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="ContextMenu.Border.Color">#FF888888</Color>
+    <Color x:Key="ContextMenu.Foregound.Color">#FFFFFFFF</Color>
+    <Color x:Key="ContextMenu.Splitter.Color1.Color">#FFFFFFFF</Color>
+    <Color x:Key="ContextMenu.Splitter.Color2.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="CurrentEntryBackground.Color">#FF0078D7</Color>
+
+    <Color x:Key="DatePicker.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="DatePicker.Background.Pressed.Color">#770F0F0F</Color>
+    <Color x:Key="DatePicker.Border.GradientStop1.Color">#FF707070</Color>
+    <Color x:Key="DatePicker.Border.GradientStop2.Color">#FF707070</Color>
+    <Color x:Key="DatePicker.Border.GradientStop3.Color">#FF707070</Color>
+    <Color x:Key="DatePicker.Border.GradientStop4.Color">#FF707070</Color>
+    <Color x:Key="DatePicker.Border.MouseOver.GradientStop2.Color">#FF5F5F5F</Color>
+    <Color x:Key="DatePicker.Border.MouseOver.GradientStop3.Color">#FF5F5F5F</Color>
+    <Color x:Key="DatePicker.Border.MouseOver.GradientStop4.Color">#FF5F5F5F</Color>
+    <Color x:Key="DatePicker.Border.Pressed.GradientStop1.Color">#55AAAAAA</Color>
+    <Color x:Key="DatePicker.Border.Pressed.GradientStop2.Color">#55AAAAAA</Color>
+    <Color x:Key="DatePicker.Border.Pressed.GradientStop3.Color">#55AAAAAA</Color>
+    <Color x:Key="DatePicker.Border.Pressed.GradientStop4.Color">#55AAAAAA</Color>
+    <Color x:Key="DatePicker.Calendar.Circle.Background.Color">#FFCCCCCC</Color>
+    <Color x:Key="DatePicker.Calendar.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="DatePicker.Disabled.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="DatePicker.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="DatePicker.Inner.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="DatePicker.Inner.Background.GradientStop1.Color">#FF4F4F4F</Color>
+    <Color x:Key="DatePicker.Inner.Background.GradientStop2.Color">#FF4F4F4F</Color>
+    <Color x:Key="DatePicker.Inner.Background.GradientStop3.Color">#FF4F4F4F</Color>
+    <Color x:Key="DatePicker.Inner.Background.GradientStop4.Color">#FF4F4F4F</Color>
+    <Color x:Key="DatePicker.Inner.Background.Gradient.Border.Color">#BF000000</Color>
+    <Color x:Key="DatePicker.Inner.Highlight.Color">#FF007BFF</Color>
+    <Color x:Key="DatePicker.Inner.Inner.Background.Color">#FF1F3B53</Color>
+    <Color x:Key="DatePicker.Inner.Inner.Border.Color">#FFFFFFFF</Color>
+    <Color x:Key="DatePicker.Inner.Rectangle.Background.GradientStop1.Color">#FF007BFF</Color>
+    <Color x:Key="DatePicker.Inner.Rectangle.Background.GradientStop2.Color">#AA007BFF</Color>
+    <Color x:Key="DatePicker.Inner.Rectangle.Border.GradientStop1.Color">#FF707070</Color>
+    <Color x:Key="DatePicker.Inner.Rectangle.Border.GradientStop2.Color">#FF707070</Color>
+    <Color x:Key="DatePicker.Popup.Background.Color">#FF1F1F1F</Color>
+
+    <Color x:Key="DropShadow.Color">#91000000</Color>
+
+    <Color x:Key="Expander.Background.Color">#00000000</Color>
+    <Color x:Key="Expander.Border.Color">#00000000</Color>
+    <Color x:Key="Expander.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="Expander.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="Expander.Circle.Stroke.Color">#FF1F1F1F</Color>
+    <Color x:Key="Expander.Circle.Fill.Color">#FF007BFF</Color>
+    <Color x:Key="Expander.Arrow.Stroke.Color">#FFFFFFFF</Color>
+    <Color x:Key="Expander.MouseOver.Circle.Stroke.Color">#FFAAAAAA</Color>
+    <Color x:Key="Expander.MouseOver.Circle.Fill.Color">#FF1F1F1F</Color>
+    <Color x:Key="Expander.MouseOver.Arrow.Stroke.Color">#FFFFFFFF</Color>
+    <Color x:Key="Expander.Pressed.Circle.Stroke.Color">#55AAAAAA</Color>
+    <Color x:Key="Expander.Pressed.Circle.Fill.Color">#770F0F0F</Color>
+    <Color x:Key="Expander.Pressed.Arrow.Stroke.Color">#FF7F7F7F</Color>
+    <Color x:Key="Expander.Disabled.Circle.Stroke.Color">#FF505050</Color>
+    <Color x:Key="Expander.Disabled.Circle.Fill.Color">#FF505050</Color>
+    <Color x:Key="Expander.Disabled.Arrow.Stroke.Color">#FF707070</Color>
+
+    <Color x:Key="FocusVisual.Stroke.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="FrameNavChrome.Path.Fill.GradientStop1.Color">#A0C2CCE7</Color>
+    <Color x:Key="FrameNavChrome.Path.Fill.GradientStop2.Color">#60FFFFFF</Color>
+    <Color x:Key="FrameNavChrome.Path.Stroke.GradientStop1.Color">#FFB7C2E3</Color>
+    <Color x:Key="FrameNavChrome.Path.Stroke.GradientStop2.Color">#A0FFFFFF</Color>
+
+    <Color x:Key="GridSplitter.Background.Color">#FFFFFFFF</Color>
+    <Color x:Key="GridSplitter.PreviewStyle.Background.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="GridViewColumnHeaderGripper.Background.GradientStop1.Color">#FF707070</Color>
+    <Color x:Key="GridViewColumnHeaderGripper.Background.GradientStop2.Color">#FF707070</Color>
+    <Color x:Key="GridViewColumnHeaderGripper.Border.GradientStop1.Color">#FF707070</Color>
+    <Color x:Key="GridViewColumnHeaderGripper.Border.GradientStop2.Color">#FF707070</Color>
+    <Color x:Key="GridViewColumnHeaderGripper.Inner.Border.Color">#00000000</Color>
+
+    <Color x:Key="GridViewColumnHeader.Background.GradientStop1.Color">#FF1F1F1F</Color>
+    <Color x:Key="GridViewColumnHeader.Background.GradientStop2.Color">#FF1F1F1F</Color>
+    <Color x:Key="GridViewColumnHeader.Border.GradientStop1.Color">#FF1F1F1F</Color>
+    <Color x:Key="GridViewColumnHeader.Border.GradientStop2.Color">#FF1F1F1F</Color>
+    <Color x:Key="GridViewColumnHeader.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="GridViewColumnHeader.Floating.Background.Color">#60000000</Color>
+    <Color x:Key="GridViewColumnHeader.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="GridViewColumnHeader.MouseOver.Background.GradientStop1.Color">#FF2F2F2F</Color>
+    <Color x:Key="GridViewColumnHeader.MouseOver.Background.GradientStop2.Color">#FF2F2F2F</Color>
+    <Color x:Key="GridViewColumnHeader.MouseOver.Border.GradientStop1.Color">#FF1F1F1F</Color>
+    <Color x:Key="GridViewColumnHeader.MouseOver.Border.GradientStop2.Color">#FF707070</Color>
+    <Color x:Key="GridViewColumnHeader.Pressed.Background.GradientStop1.Color">#FF0F0F0F</Color>
+    <Color x:Key="GridViewColumnHeader.Pressed.Background.GradientStop2.Color">#FF0F0F0F</Color>
+    <Color x:Key="GridViewColumnHeader.Pressed.Border.GradientStop1.Color">#FF1F1F1F</Color>
+    <Color x:Key="GridViewColumnHeader.Pressed.Border.GradientStop2.Color">#FFAAAAAA</Color>
+
+    <Color x:Key="GroupBox.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="GroupBox.Border.Color">#FF007BFF</Color>
+    <Color x:Key="GroupBox.Disabled.Border.Color">#88007BFF</Color>
+    <Color x:Key="GroupBox.Disabled.Background.Color">#BB444444</Color>
+    <Color x:Key="GroupBox.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="GroupBox.Foreground.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="Hyperlink.Disabled.Foreground.Color">#FFAAAAAA</Color>
+    <Color x:Key="Hyperlink.Foreground.Color">#FF007BFF</Color>
+    <Color x:Key="Hyperlink.MouseOver.Foreground.Color">#FF218CFF</Color>
+
+    <Color x:Key="Label.Background.Color">#00000000</Color>
+    <Color x:Key="Label.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="Label.Disabled.Foreground.Color">#FFAAAAAA</Color>
+
+    <Color x:Key="ListBox.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="ListBox.Border.Color">#FF707070</Color>
+    <Color x:Key="ListBox.Disabled.Background.Color">#773D3D3D</Color>
+    <Color x:Key="ListBox.Disabled.Border.Color">#FF3D3D3D</Color>
+    <Color x:Key="ListBox.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="ListBox.Disabled.Foreground.Color">#FF7D7D7D</Color>
+
+    <Color x:Key="ListBoxItem.MouseOver.Background.Color">#77525252</Color>
+    <Color x:Key="ListBoxItem.MouseOver.Border.Color">#FFAAAAAA</Color>
+    <Color x:Key="ListBoxItem.SelectedActive.Background.Color">#33007BFF</Color>
+    <Color x:Key="ListBoxItem.SelectedActive.Border.Color">#CC007BFF</Color>
+    <Color x:Key="ListBoxItem.SelectedActive.MouseOver.Background.Color">#66007BFF</Color>
+    <Color x:Key="ListBoxItem.SelectedActive.MouseOver.Border.Color">#FF007BFF</Color>
+    <Color x:Key="ListBoxItem.SelectedInactive.Background.Color">#18007BFF</Color>
+    <Color x:Key="ListBoxItem.SelectedInactive.Border.Color">#44007BFF</Color>
+
+    <Color x:Key="ListView.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="ListView.Border.Color">#FF707070</Color>
+    <Color x:Key="ListView.Disabled.Background.Color">#773D3D3D</Color>
+    <Color x:Key="ListView.Disabled.Border.Color">#FF3D3D3D</Color>
+    <Color x:Key="ListView.Foreground.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="Item.MouseOver.Background.Color">#77525252</Color>
+    <Color x:Key="Item.MouseOver.Border.Color">#FFAAAAAA</Color>
+    <Color x:Key="Item.SelectedActive.Background.Color">#33007BFF</Color>
+    <Color x:Key="Item.SelectedActive.Border.Color">#CC007BFF</Color>
+    <Color x:Key="Item.SelectedActive.MouseOver.Background.Color">#66007BFF</Color>
+    <Color x:Key="Item.SelectedActive.MouseOver.Border.Color">#FF007BFF</Color>
+    <Color x:Key="Item.SelectedInactive.Background.Color">#18007BFF</Color>
+    <Color x:Key="Item.SelectedInactive.Border.Color">#44007BFF</Color>
+
+    <Color x:Key="Menu.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="Menu.Border.Color">#FF707070</Color>
+    <Color x:Key="Menu.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="Menu.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="Menu.Separator.Color">#FFDDDDDD</Color>
+
+    <Color x:Key="MenuItem.Highlight.Background.Color">#77525252</Color>
+    <Color x:Key="MenuItem.Highlight.Border.Color">#FFAAAAAA</Color>
+    <Color x:Key="MenuItem.Highlight.Disabled.Background.Color">#773D3D3D</Color>
+    <Color x:Key="MenuItem.Highlight.Disabled.Border.Color">#FF3D3D3D</Color>
+    <Color x:Key="MenuItem.Selected.Background.Color">#33007BFF</Color>
+    <Color x:Key="MenuItem.Selected.Border.Color">#CC007BFF</Color>
+
+    <Color x:Key="MenuScrollButton.Background.Color">#00000000</Color>
+    <Color x:Key="MenuScrollButton.Border.Color">#00000000</Color>
+
+    <Color x:Key="OptionMark.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="OptionMark.Border.Color">#FF707070</Color>
+    <Color x:Key="OptionMark.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="OptionMark.Glyph.Color">#FFFFFFFF</Color>
+    <Color x:Key="OptionMark.Root.Background.Color">#00000000</Color>
+    <Color x:Key="OptionMark.MouseOver.Background.Color">#77525252</Color>
+    <Color x:Key="OptionMark.MouseOver.Border.Color">#FFAAAAAA</Color>
+    <Color x:Key="OptionMark.MouseOver.Glyph.Color">#FFFFFFFF</Color>
+    <Color x:Key="OptionMark.Pressed.Background.Color">#770F0F0F</Color>
+    <Color x:Key="OptionMark.Pressed.Border.Color">#FF777777</Color>
+    <Color x:Key="OptionMark.Pressed.Glyph.Color">#FF212121</Color>
+    <Color x:Key="OptionMark.Disabled.Background.Color">#AA4F4F4F</Color>
+    <Color x:Key="OptionMark.Disabled.Border.Color">#AA4F4F4F</Color>
+    <Color x:Key="OptionMark.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="OptionMark.Disabled.Glyph.Color">#FF5F5F5F</Color>
+
+    <Color x:Key="ProgressBar.Progress.Color">#FF007BFF</Color>
+    <Color x:Key="ProgressBar.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="ProgressBar.Border.Color">#FF707070</Color>
+    <Color x:Key="ProgressBar.Disabled.Color">#FF505050</Color>
+
+    <Color x:Key="RadioButton.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="RadioButton.Border.Color">#FF707070</Color>
+    <Color x:Key="RadioButton.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="RadioButton.Glyph.Color">#FFFFFFFF</Color>
+    <Color x:Key="RadioButton.MouseOver.Background.Color">#77525252</Color>
+    <Color x:Key="RadioButton.MouseOver.Border.Color">#FFAAAAAA</Color>
+    <Color x:Key="RadioButton.MouseOver.Glyph.Color">#FFFFFFFF</Color>
+    <Color x:Key="RadioButton.Pressed.Background.Color">#770F0F0F</Color>
+    <Color x:Key="RadioButton.Pressed.Border.Color">#FF777777</Color>
+    <Color x:Key="RadioButton.Pressed.Glyph.Color">#FF212121</Color>
+    <Color x:Key="RadioButton.Root.Background.Color">#00000000</Color>
+    <Color x:Key="RadioButton.Disabled.Background.Color">#AA4F4F4F</Color>
+    <Color x:Key="RadioButton.Disabled.Border.Color">#AA4F4F4F</Color>
+    <Color x:Key="RadioButton.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="RadioButton.Disabled.Glyph.Color">#FF5F5F5F</Color>
+
+    <Color x:Key="RepeatButton.Transparent.Background.Color">#00000000</Color>
+
+    <Color x:Key="ScrollBarButton.Background.Color">#FF3F3F3F</Color>
+    <Color x:Key="ScrollBarButton.Border.Color">#FF3F3F3F</Color>
+    <Color x:Key="ScrollBarButton.MouseOver.Background.Color">#88FFFFFF</Color>
+    <Color x:Key="ScrollBarButton.MouseOver.Border.Color">#88FFFFFF</Color>
+    <Color x:Key="ScrollBarButton.Pressed.Background.Color">#FF606060</Color>
+    <Color x:Key="ScrollBarButton.Pressed.Border.Color">#FF606060</Color>
+    <Color x:Key="ScrollBarButton.Disabled.Background.Color">#FF707070</Color>
+    <Color x:Key="ScrollBarButton.Disabled.Border.Color">#FF707070</Color>
+
+    <Color x:Key="ScrollBar.Background.Color">#FF3F3F3F</Color>
+    <Color x:Key="ScrollBar.Border.Color">#FF3F3F3F</Color>
+    <Color x:Key="ScrollBar.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="ScrollBar.Glyph.Color">#FFFFFFFF</Color>
+    <Color x:Key="ScrollBar.Thumb.Color">#33FFFFFF</Color>
+    <Color x:Key="ScrollBar.MouseOver.Glyph.Color">#FF1F1F1F</Color>
+    <Color x:Key="ScrollBar.MouseOver.Thumb.Color">#88FFFFFF</Color>
+    <Color x:Key="ScrollBar.Pressed.Glyph.Color">#FF1F1F1F</Color>
+    <Color x:Key="ScrollBar.Pressed.Thumb.Color">#88FFFFFF</Color>
+    <Color x:Key="ScrollBar.Disabled.Glyph.Color">#FFCCCCCC</Color>
+    <Color x:Key="ScrollBar.Disabled.Thumb.Color">#FF707070</Color>
+
+    <Color x:Key="Separator.Background.Color">#FFC0C0C0</Color>
+
+    <Color x:Key="Slider.Background.Color">#00000000</Color>
+    <Color x:Key="Slider.Border.Color">#00000000</Color>
+    <Color x:Key="Slider.Disabled.Background.Color">#AA505050</Color>
+    <Color x:Key="Slider.SelectionRange.Background.Color">#FF007BFF</Color>
+    <Color x:Key="Slider.IsKeyboardfocused.Foreground.Color">#FF007BFF</Color>
+
+    <Color x:Key="SliderThumb.Background.Color">#FF007BFF</Color>
+    <Color x:Key="SliderThumb.Border.Color">#FF007BFF</Color>
+    <Color x:Key="SliderThumb.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="SliderThumb.MouseOver.Background.Color">#FF1284FF</Color>
+    <Color x:Key="SliderThumb.MouseOver.Border.Color">#FF1284FF</Color>
+    <Color x:Key="SliderThumb.Pressed.Background.Color">#FF0073F0</Color>
+    <Color x:Key="SliderThumb.Pressed.Border.Color">#FF0073F0</Color>
+    <Color x:Key="SliderThumb.Disabled.Background.Color">#FF505050</Color>
+    <Color x:Key="SliderThumb.Disabled.Border.Color">#FF505050</Color>
+    <Color x:Key="SliderThumb.Track.Background.Color">#FF707070</Color>
+    <Color x:Key="SliderThumb.Track.Border.Color">#FF707070</Color>
+
+    <Color x:Key="StatusBar.Background.Color">#FF3F3F3F</Color>
+    <Color x:Key="StatusBar.Foreground.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="StatusBarItem.Background.Color">#00000000</Color>
+    <Color x:Key="StatusBarItem.Border.Color">#00000000</Color>
+    <Color x:Key="StatusBarItem.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="StatusBarItem.Foreground.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="TabControl.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="TabControl.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="TabControl.TabPanel.Background.Color">#00000000</Color>
+
+    <Color x:Key="TabItem.Accent.Color">#FF007BFF</Color>
+    <Color x:Key="TabItem.Background.GradientStop1.Color">#FF1F1F1F</Color>
+    <Color x:Key="TabItem.Background.GradientStop2.Color">#FF1F1F1F</Color>
+    <Color x:Key="TabItem.Border.Color">#FF707070</Color>
+    <Color x:Key="TabItem.Disabled.Background.Color">#FF505050</Color>
+    <Color x:Key="TabItem.Disabled.Border.Color">#FF606060</Color>
+    <Color x:Key="TabItem.MouseOver.Background.GradientStop1.Color">#FF3F3F3F</Color>
+    <Color x:Key="TabItem.MouseOver.Background.GradientStop2.Color">#FF3F3F3F</Color>
+    <Color x:Key="TabItem.MouseOver.Border.Color">#FF0073F0</Color>
+    <Color x:Key="TabItem.Selected.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="TabItem.Selected.Border.Color">#FF707070</Color>
+
+    <Color x:Key="TextBoxBase.Background.Color">#FF4F4F4F</Color>
+    <Color x:Key="TextBoxBase.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="TextBoxBase.InactiveSelection.Color">#330073F0</Color>
+
+    <Color x:Key="TextBox.Focus.Border.Color">#BB0073F0</Color>
+    <Color x:Key="TextBox.MouseOver.Border.Color">#FF0073F0</Color>
+    <Color x:Key="TextBox.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="TextBox.Border.Color">#FF707070</Color>
+    <Color x:Key="TextBox.ContentHost.Background.Color">#FF707070</Color>
+    <Color x:Key="TextBox.Watermark.Color">#FFAAAAAA</Color>
+
+    <Color x:Key="ToolBarButtonHover.Color">#210080FF</Color>
+    <Color x:Key="ToolBarMenuBorder.Color">#FFB6BDC5</Color>
+    <Color x:Key="ToolBarHorizontalOverflow.Path.Border.Color">#FFFFFFFF</Color>
+    <Color x:Key="ToolBarVerticalOverflow.Path.Border.Color">#FFFFFFFF</Color>
+    <Color x:Key="ToolBarSubMenuBackground.Color">#FF1F1F1F</Color>
+    <Color x:Key="ToolBarHorizontalBackground.Color">#FF1F1F1F</Color>
+    <Color x:Key="ToolBarVerticalBackground.Color">#FF1F1F1F</Color>
+    <Color x:Key="ToolBarGripper.Color">#FFFFFFFF</Color>
+    <Color x:Key="ToolBarToggleButtonHorizontalBackground.Color">#FF1F1F1F</Color>
+    <Color x:Key="ToolBarToggleButtonVerticalBackground.Color">#FF1F1F1F</Color>
+
+    <Color x:Key="ToolBar.Thumb.Background.Color">#00000000</Color>
+    <Color x:Key="ToolBar.Thumb.GeometryDrawing.Color">#FFFFFFFF</Color>
+    <Color x:Key="ToolBar.Disabled.Foreground.Color">#FF808080</Color>
+
+    <Color x:Key="ToolBarTray.Background.Color">#FF1F1F1F</Color>
+
+    <Color x:Key="ToolTip.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="ToolTip.Border.Color">#FF707070</Color>
+    <Color x:Key="ToolTip.Foreground.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="TreeView.Background.Color">#FF1F1F1F</Color>
+    <Color x:Key="TreeView.Border.Color">#FF707070</Color>
+    <Color x:Key="TreeView.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="TreeView.Foreground.Color">#FFFFFFFF</Color>
+
+    <Color x:Key="TreeViewItem.Background.Color">#00000000</Color>
+    <Color x:Key="TreeViewItem.Disabled.Foreground.Color">#FF7D7D7D</Color>
+    <Color x:Key="TreeViewItem.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="TreeViewItem.Selected.Background.Color">#FF007BFF</Color>
+    <Color x:Key="TreeViewItem.Selected.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="TreeViewItem.TreeArrow.Background.Color">#FFCCCCCC</Color>
+    <Color x:Key="TreeViewItem.TreeArrow.Border.Color">#FFCCCCCC</Color>
+    <Color x:Key="TreeViewItem.TreeArrow.MouseOver.Background.Color">#FFFFFFFF</Color>
+    <Color x:Key="TreeViewItem.TreeArrow.MouseOver.Border.Color">#FFFFFFFF</Color>
+    <Color x:Key="TreeViewItem.TreeArrow.Checked.Background.Color">#FF707070</Color>
+    <Color x:Key="TreeViewItem.TreeArrow.Checked.Border.Color">#FF1F1F1F</Color>
+    <Color x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Background.Color">#FFFFFFFF</Color>
+    <Color x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Border.Color">#FFFFFFFF</Color>
+</ResourceDictionary>

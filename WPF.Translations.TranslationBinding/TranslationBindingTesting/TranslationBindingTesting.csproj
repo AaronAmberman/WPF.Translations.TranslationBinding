@@ -1,0 +1,85 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>TranslationBindingTesting</RootNamespace>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Page Remove="Theming\Dark\AppTheme.xaml" />
+    <Page Remove="Theming\Dark\Brushes.xaml" />
+    <Page Remove="Theming\Dark\Colors.xaml" />
+    <Page Remove="Theming\Dark\CustomControlsDarkTheme.xaml" />
+    <Page Remove="Theming\Dark\DarkTheme.xaml" />
+    <Page Remove="Theming\Light\AppTheme.xaml" />
+    <Page Remove="Theming\Light\Brushes.xaml" />
+    <Page Remove="Theming\Light\Colors.xaml" />
+    <Page Remove="Theming\Light\CustomControlsLightTheme.xaml" />
+    <Page Remove="Theming\Light\LightTheme.xaml" />
+    <Page Remove="Translations\Translations.de.xaml" />
+    <Page Remove="Translations\Translations.en.xaml" />
+    <Page Remove="Translations\Translations.es.xaml" />
+    <Page Remove="Translations\Translations.fr.xaml" />
+    <Page Remove="Translations\Translations.it.xaml" />
+    <Page Remove="Translations\Translations.ja.xaml" />
+    <Page Remove="Translations\Translations.ko.xaml" />
+    <Page Remove="Translations\Translations.no.xaml" />
+    <Page Remove="Translations\Translations.pt.xaml" />
+    <Page Remove="Translations\Translations.ru.xaml" />
+    <Page Remove="Translations\Translations.zh-Hans.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SimpleRollingLogger" Version="1.0.1" />
+    <PackageReference Include="WPF.AA.CustomControls" Version="1.0.2" />
+    <PackageReference Include="WPF.InternalDialogs" Version="1.0.4" />
+    <PackageReference Include="WPF.Translations" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WPF.Translations.TranslationBinding\WPF.Translations.TranslationBinding.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Theming\Dark\AppTheme.xaml" />
+    <Resource Include="Theming\Dark\Brushes.xaml" />
+    <Resource Include="Theming\Dark\Colors.xaml" />
+    <Resource Include="Theming\Dark\CustomControlsDarkTheme.xaml" />
+    <Resource Include="Theming\Dark\DarkTheme.xaml" />
+    <Resource Include="Theming\Light\AppTheme.xaml" />
+    <Resource Include="Theming\Light\Brushes.xaml" />
+    <Resource Include="Theming\Light\Colors.xaml" />
+    <Resource Include="Theming\Light\CustomControlsLightTheme.xaml" />
+    <Resource Include="Theming\Light\LightTheme.xaml" />
+    <Resource Include="Translations\Translations.de.xaml" />
+    <Resource Include="Translations\Translations.en.xaml" />
+    <Resource Include="Translations\Translations.es.xaml" />
+    <Resource Include="Translations\Translations.fr.xaml" />
+    <Resource Include="Translations\Translations.it.xaml" />
+    <Resource Include="Translations\Translations.ja.xaml" />
+    <Resource Include="Translations\Translations.ko.xaml" />
+    <Resource Include="Translations\Translations.no.xaml" />
+    <Resource Include="Translations\Translations.pt.xaml" />
+    <Resource Include="Translations\Translations.ru.xaml" />
+    <Resource Include="Translations\Translations.zh-Hans.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

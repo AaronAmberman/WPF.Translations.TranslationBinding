@@ -1,0 +1,207 @@
+﻿<Window x:Class="TranslationBindingTesting.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TranslationBindingTesting"
+        xmlns:viewModels="clr-namespace:TranslationBindingTesting.ViewModels"
+        xmlns:internalDialogs="clr-namespace:WPF.InternalDialogs;assembly=WPF.InternalDialogs"
+        xmlns:tb="clr-namespace:WPF.Translations.TranslationBinding;assembly=WPF.Translations.TranslationBinding"
+        mc:Ignorable="d"
+        Title="{Binding Translations.MainWindowTitle, FallbackValue=LTT WPF Application Template}" 
+        Height="768" Width="1024" WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}">
+    <Grid  x:Name="mainGrid" Style="{StaticResource GridStyle}">
+        <Grid x:Name="innerMainGrid" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <!-- header -->
+                    <!--<Button BorderThickness="0" HorizontalAlignment="Right" Content="{StaticResource Settings}" Command="{Binding ShowSettingsCommand}"
+                            ToolTip="{Binding Translations.Settings}" />-->
+                    <Button BorderThickness="0" HorizontalAlignment="Right" Content="{StaticResource Settings}" Command="{Binding ShowSettingsCommand}"
+                            ToolTip="{tb:TranslationBinding TranslationKey=Settings, FallbackValue=Settings}" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <!-- content -->
+                </Grid>
+                <Grid Grid.Row="2">
+                    <!-- footer -->
+                </Grid>
+            </Grid>
+        </Grid>
+        <internalDialogs:MovableResizableInternalDialog x:Name="settingsDialog" Grid.Row="0" Grid.RowSpan="2"
+                                                        ResizableMinHeight="256" ResizableMinWidth="512" ResizableMaxHeight="512" ResizableMaxWidth="768"
+                                                        CloseOnEscape="False"
+                                                        Foreground="{DynamicResource TranslationBindingTesting.Foreground}" 
+                                                        TitleAreaBackground="{DynamicResource TranslationBindingTesting.InternalDialog.Title}" 
+                                                        AnswerAreaBackground="{DynamicResource TranslationBindingTesting.InternalDialog.ButtonArea}" 
+                                                        ContentBackground="{DynamicResource TranslationBindingTesting.InternalDialog}"
+                                                        TitleContent="{Binding Translations.Settings, FallbackValue=Settings}" 
+                                                        Visibility="{Binding SettingsViewModel.Visibility, FallbackValue=Collapsed}"
+                                                        Result="{Binding SettingsViewModel.Result, Mode=OneWayToSource}"
+                                                        FocusParent="{Binding ElementName=mainGrid}">
+            <internalDialogs:MovableResizableInternalDialog.CloseButtonStyle>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </internalDialogs:MovableResizableInternalDialog.CloseButtonStyle>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Margin="0,0,5,0" Padding="0,1,0,0" 
+                               Text="{Binding Translations.Language, FallbackValue=Language}"  />
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding SettingsViewModel.Languages}" SelectedItem="{Binding SettingsViewModel.SelectedLanguage}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Item2}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+                <Grid Grid.Row="1" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Margin="0,0,5,0" Padding="0,1,0,0" 
+                               Text="{Binding Translations.Theme, FallbackValue=Theme}"  />
+                    <ComboBox Grid.Column="1" SelectedIndex="{Binding SettingsViewModel.Theme}">
+                        <ComboBoxItem Content="Light" />
+                        <ComboBoxItem Content="Dark" />
+                    </ComboBox>
+                </Grid>
+                <Grid Grid.Row="2" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,5,0" Padding="0,1,0,0"
+                               Text="{Binding Translations.LogFile, FallbackValue=Log file}" />
+                    <TextBox x:Name="logFileTextBox" Grid.Column="1" Grid.Row="0" Margin="0,0,5,0"
+                             Text="{Binding SettingsViewModel.LogPath}" />
+                    <Button Grid.Column="2" Grid.Row="0"
+                            Content="{Binding Translations.Browse, FallbackValue=Browse}"
+                            Command="{Binding SettingsViewModel.BrowseLogCommand}" />
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" FontStyle="Italic" FontSize="10" TextWrapping="Wrap"
+                               Text="{Binding Translations.LogSettingFileNote, FallbackValue=Note: by default the application will log to where it is executing (unless this setting is set) or if that cannot be determined for some reason then it will log to the desktop.}" />
+                </Grid>
+            </Grid>
+            <internalDialogs:MovableResizableInternalDialog.AnswerAreaContent>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Width="18" Height="18" Background="Transparent" BorderThickness="0" Padding="0,1,0,0"
+                            Content="{StaticResource About}" ToolTip="{Binding Translations.About}" Command="{Binding SettingsViewModel.AboutCommand}" />
+                    <Button Grid.Column="2" Margin="0,0,5,0" MinWidth="50"
+                            Content="{Binding Translations.OK, FallbackValue=OK}" 
+                            Command="{Binding SettingsViewModel.OkCommand}" />
+                    <Button Grid.Column="3" MinWidth="50"
+                            Content="{Binding Translations.Cancel, FallbackValue=Cancel}" 
+                            Command="{Binding SettingsViewModel.CancelCommand}" />
+                </Grid>
+            </internalDialogs:MovableResizableInternalDialog.AnswerAreaContent>
+        </internalDialogs:MovableResizableInternalDialog>
+        <internalDialogs:MovableResizableInternalDialog x:Name="aboutDialog" Grid.Row="0" Grid.RowSpan="2" 
+                                                        Foreground="{DynamicResource TranslationBindingTesting.Foreground}"
+                                                        TitleAreaBackground="{DynamicResource TranslationBindingTesting.InternalDialog.Title}" 
+                                                        AnswerAreaBackground="{DynamicResource TranslationBindingTesting.InternalDialog.ButtonArea}" 
+                                                        ContentBackground="{DynamicResource TranslationBindingTesting.InternalDialog}"
+                                                        TitleContent="{Binding Translations.About, FallbackValue=About}"
+                                                        Visibility="{Binding SettingsViewModel.AboutBoxVisibility, FallbackValue=Collapsed}"
+                                                        FocusParent="{Binding ElementName=mainGrid}">
+            <internalDialogs:MovableResizableInternalDialog.CloseButtonStyle>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Focusable" Value="False" />
+                    <Setter Property="Background" Value="#00000000" />
+                    <Setter Property="BorderBrush" Value="#00000000" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Content" Value="{StaticResource CloseX}" />
+                </Style>
+            </internalDialogs:MovableResizableInternalDialog.CloseButtonStyle>
+            <Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock TextWrapping="Wrap" Style="{StaticResource TextBlockForegroundStyle}">
+                        <Run Text="{Binding Translations.AboutAppMessage, FallbackValue=About application}" />
+                        <LineBreak /><LineBreak />
+                        <Italic>
+                            <Run Text="{Binding Translations.Version, FallbackValue=Version}" />
+                            <Run Text="{Binding Version, Mode=OneWay}" />
+                        </Italic>
+                    </TextBlock>
+                </ScrollViewer>
+            </Grid>
+        </internalDialogs:MovableResizableInternalDialog>
+        <internalDialogs:ProgressInternalDialog x:Name="progressDialog" 
+                                                CloseOnEscape="False" IsModal="False"
+                                                ProgressDialogBackground="{DynamicResource TranslationBindingTesting.ProgressBox.Background}" 
+                                                TitleAreaBackground="{DynamicResource TranslationBindingTesting.ProgressBox.Title.Background}" 
+                                                Foreground="{DynamicResource TranslationBindingTesting.ProgressBox.Foreground}"
+                                                Visibility="{Binding ProgressViewModel.ProgressDialogVisbility, FallbackValue=Collapsed}" 
+                                                ProgressDialogMessage="{Binding ProgressViewModel.ProgressMessage}"
+                                                Title="{Binding ProgressViewModel.ProgressTitle}" ResizeGripVisibility="Collapsed"
+                                                ProgressValue="{Binding ProgressViewModel.ProgressValue}"
+                                                FocusParent="{Binding ElementName=mainGrid}">
+            <internalDialogs:ProgressInternalDialog.CloseButtonStyle>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </internalDialogs:ProgressInternalDialog.CloseButtonStyle>
+            <internalDialogs:ProgressInternalDialog.ProgressBarStyle>
+                <Style TargetType="ProgressBar" BasedOn="{StaticResource {x:Type ProgressBar}}">
+                    <Setter Property="IsIndeterminate" Value="{Binding ProgressViewModel.ProgressIsIndeterminate}" />
+                    <Setter Property="Maximum" Value="{Binding ProgressViewModel.ProgressMax}" />
+                    <Setter Property="Minimum" Value="{Binding ProgressViewModel.ProgressMin}" />
+                    <Setter Property="Height" Value="20" />
+                </Style>
+            </internalDialogs:ProgressInternalDialog.ProgressBarStyle>
+        </internalDialogs:ProgressInternalDialog>
+        <internalDialogs:MessageBoxInternalDialog x:Name="messageBoxInternalDialog"
+                                                  Grid.Row="0" Grid.RowSpan="2"
+                                                  Foreground="{DynamicResource TranslationBindingTesting.MessageBox.Foreground}" 
+                                                  MessageBoxBackground="{DynamicResource TranslationBindingTesting.MessageBox}" 
+                                                  TitleAreaBackground="{DynamicResource TranslationBindingTesting.MessageBox.Title}" 
+                                                  ButtonAreaBackground="{DynamicResource TranslationBindingTesting.MessageBox.ButtonArea}"
+                                                  Visibility="{Binding MessageBoxViewModel.MessageBoxVisibility, FallbackValue=Collapsed}" 
+                                                  Message="{Binding MessageBoxViewModel.MessageBoxMessage}"
+                                                  Title="{Binding MessageBoxViewModel.MessageBoxTitle}" MessageBoxImage="{Binding MessageBoxViewModel.MessageBoxImage}"
+                                                  Result="{Binding MessageBoxViewModel.MessageBoxResult, Mode=TwoWay}" IsModal="{Binding MessageBoxViewModel.MessageBoxIsModal}"
+                                                  MessageBoxButton="{Binding MessageBoxViewModel.MessageBoxButton}"
+                                                  FocusParent="{Binding ElementName=mainGrid}">
+            <internalDialogs:MessageBoxInternalDialog.CloseButtonStyle>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Content" Value="{StaticResource CloseX}" />
+                </Style>
+            </internalDialogs:MessageBoxInternalDialog.CloseButtonStyle>
+            <internalDialogs:MessageBoxInternalDialog.ButtonStyle>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="MinWidth" Value="50" />
+                </Style>
+            </internalDialogs:MessageBoxInternalDialog.ButtonStyle>
+        </internalDialogs:MessageBoxInternalDialog>
+    </Grid>
+</Window>

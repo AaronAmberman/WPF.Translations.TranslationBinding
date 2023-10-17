@@ -112,7 +112,7 @@ namespace WPF.Translations.TranslationBinding
             // this method only needs to run once for us to determine the translations that were included
             if (cachedIncludedTranslations.Count > 0) return;
 
-            var assembly = Assembly.GetExecutingAssembly();
+            var assembly = Assembly.GetEntryAssembly();
 
             string resName = assembly.GetName().Name + ".g.resources";
 

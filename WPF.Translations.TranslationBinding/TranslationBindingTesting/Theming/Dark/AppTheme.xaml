@@ -1,0 +1,51 @@
+﻿<!-- 
+    Dark
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    mc:Ignorable="options">
+    <Color x:Key="TranslationBindingTesting.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="TranslationBindingTesting.Foreground.Disabled.Color">#FF7D7D7D</Color>
+    <Color x:Key="TranslationBindingTesting.Foreground.Error.Color">#FFFF0000</Color>
+    <Color x:Key="TranslationBindingTesting.Border.Color">#FFFFFFFF</Color>
+    <Color x:Key="TranslationBindingTesting.Grid.Color">#FF1F1F1F</Color>
+    <Color x:Key="TranslationBindingTesting.InternalDialog.Color">#FF2F2F2F</Color>
+    <Color x:Key="TranslationBindingTesting.InternalDialog.Title.Color">#FF101010</Color>
+    <Color x:Key="TranslationBindingTesting.InternalDialog.ButtonArea.Color">#FF2F2F2F</Color>
+    <Color x:Key="TranslationBindingTesting.MessageBox.Color">#FF2F2F2F</Color>
+    <Color x:Key="TranslationBindingTesting.MessageBox.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="TranslationBindingTesting.MessageBox.Title.Color">#FF101010</Color>
+    <Color x:Key="TranslationBindingTesting.MessageBox.ButtonArea.Color">#FF2F2F2F</Color>
+    <Color x:Key="TranslationBindingTesting.ProgressBox.Background.Color">#FF2F2F2F</Color>
+    <Color x:Key="TranslationBindingTesting.ProgressBox.Foreground.Color">#FFFFFFFF</Color>
+    <Color x:Key="TranslationBindingTesting.ProgressBox.Title.Background.Color">#FF2F2F2F</Color>
+
+    <SolidColorBrush x:Key="TranslationBindingTesting.Foreground" Color="{DynamicResource TranslationBindingTesting.Foreground.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.Foreground.Disabled" Color="{DynamicResource TranslationBindingTesting.Foreground.Disabled.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.Foreground.Error" Color="{DynamicResource TranslationBindingTesting.Foreground.Error.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.Border" Color="{DynamicResource TranslationBindingTesting.Border.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.Grid" Color="{DynamicResource TranslationBindingTesting.Grid.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.InternalDialog" Color="{DynamicResource TranslationBindingTesting.InternalDialog.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.InternalDialog.Title" Color="{DynamicResource TranslationBindingTesting.InternalDialog.Title.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.InternalDialog.ButtonArea" Color="{DynamicResource TranslationBindingTesting.InternalDialog.ButtonArea.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.MessageBox" Color="{DynamicResource TranslationBindingTesting.MessageBox.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.MessageBox.Foreground" Color="{DynamicResource TranslationBindingTesting.MessageBox.Foreground.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.MessageBox.Title" Color="{DynamicResource TranslationBindingTesting.MessageBox.Title.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.MessageBox.ButtonArea" Color="{DynamicResource TranslationBindingTesting.MessageBox.ButtonArea.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.ProgressBox.Background" Color="{DynamicResource TranslationBindingTesting.ProgressBox.Background.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.ProgressBox.Foreground" Color="{DynamicResource TranslationBindingTesting.ProgressBox.Foreground.Color}" options:Freeze="True"/>
+    <SolidColorBrush x:Key="TranslationBindingTesting.ProgressBox.Title.Background" Color="{DynamicResource TranslationBindingTesting.ProgressBox.Title.Background.Color}" options:Freeze="True"/>
+    
+    <Style x:Key="GridStyle" TargetType="Grid">
+        <Setter Property="Background" Value="{DynamicResource TranslationBindingTesting.Grid}" />
+    </Style>
+    <Style x:Key="TextBlockForegroundStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource TranslationBindingTesting.Foreground}" />
+    </Style>
+    <Style x:Key="BorderStyle" TargetType="Border">
+        <Setter Property="BorderBrush" Value="{DynamicResource TranslationBindingTesting.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+</ResourceDictionary>

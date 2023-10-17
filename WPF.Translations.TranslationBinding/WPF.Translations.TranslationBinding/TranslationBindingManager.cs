@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Timers;
+using System.Windows;
 
 namespace WPF.Translations.TranslationBinding
 {

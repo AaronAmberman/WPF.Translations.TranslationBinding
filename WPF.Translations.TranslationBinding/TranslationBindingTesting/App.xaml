@@ -1,0 +1,43 @@
+﻿<Application x:Class="TranslationBindingTesting.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TranslationBindingTesting"
+             xmlns:converters="clr-namespace:TranslationBindingTesting.Converters"
+             xmlns:theme="clr-namespace:TranslationBindingTesting.Theming"
+             StartupUri="MainWindow.xaml"
+             Startup="Application_Startup" Exit="Application_Exit"
+             DispatcherUnhandledException="Application_DispatcherUnhandledException">
+    <Application.Resources>
+        <ResourceDictionary>
+            <converters:ArithmeticConverter x:Key="ArithmeticConverter" />
+            <converters:EqualsConverter x:Key="EqualsConverter" />
+            <converters:EqualsMultiConverter x:Key="EqualsMultiConverter" />
+            <converters:NotEqualsConverter x:Key="NotEqualsConverter" />
+            <converters:NotEqualsMultiConverter x:Key="NotEqualsMultiConverter" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/WpfImagery.xaml" />
+
+                <theme:ThemeDictionary Source="pack://application:,,,/Theming/Dark/Colors.xaml"
+                                       DarkSource="pack://application:,,,/Theming/Dark/Colors.xaml"
+                                       LightSource="pack://application:,,,/Theming/Light/Colors.xaml" />
+
+                <theme:ThemeDictionary Source="pack://application:,,,/Theming/Dark/Brushes.xaml"
+                                       DarkSource="pack://application:,,,/Theming/Dark/Brushes.xaml"
+                                       LightSource="pack://application:,,,/Theming/Light/Brushes.xaml" />
+
+                <theme:ThemeDictionary Source="pack://application:,,,/Theming/Dark/CustomControlsDarkTheme.xaml"
+                                       DarkSource="pack://application:,,,/Theming/Dark/CustomControlsDarkTheme.xaml"
+                                       LightSource="pack://application:,,,/Theming/Light/CustomControlsLightTheme.xaml" />
+
+                <theme:ThemeDictionary Source="pack://application:,,,/Theming/Dark/DarkTheme.xaml"
+                                       DarkSource="pack://application:,,,/Theming/Dark/DarkTheme.xaml"
+                                       LightSource="pack://application:,,,/Theming/Light/LightTheme.xaml" />
+
+                <theme:ThemeDictionary Source="pack://application:,,,/Theming/Dark/AppTheme.xaml"
+                                       DarkSource="pack://application:,,,/Theming/Dark/AppTheme.xaml"
+                                       LightSource="pack://application:,,,/Theming/Light/AppTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
