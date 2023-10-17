@@ -40,6 +40,10 @@ namespace WPF.Translations.TranslationBinding
             }
         }
 
+        public string Parameter { get; set; }
+        public string Parameter2 { get; set; }
+        public string Parameter3 { get; set; }
+
         public string TranslationKey
         {
             get => translationKey;
