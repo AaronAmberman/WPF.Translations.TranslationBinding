@@ -40,4 +40,7 @@
     <sys:String x:Key="Warning">Warning</sys:String>
     <sys:String x:Key="Warnings">Warnings</sys:String>
     <sys:String x:Key="Yes">Yes</sys:String>
+    <sys:String x:Key="Testing">Can we insert {0} parameters?</sys:String>
+    <sys:String x:Key="Testing2">Can we insert {0} parameters into {1}?</sys:String>
+    <sys:String x:Key="Testing3">Can we insert {0} parameters into {1} the string {3}?</sys:String>
 </ResourceDictionary>

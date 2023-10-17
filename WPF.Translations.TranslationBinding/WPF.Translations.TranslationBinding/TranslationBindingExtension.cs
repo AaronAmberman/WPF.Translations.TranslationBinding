@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -19,9 +20,9 @@ namespace WPF.Translations.TranslationBinding
         private List<string> cachedIncludedTranslations = new List<string>();
         private static Dictionary<string, string> cachedTranslations = new Dictionary<string, string>();
         private string fallbackValue;
-        private DependencyObject target;
         private DependencyProperty targetProperty;
         private string translationKey;
+        private WeakReference weakTargetReference;
 
         #endregion
 
@@ -82,29 +83,46 @@ namespace WPF.Translations.TranslationBinding
 
         private void TranslationBindingManager_CultureChanged(object sender, EventArgs e)
         {
-            cachedTranslations.Clear();
+            if (!cachedTranslations.ContainsKey(CultureInfo.DefaultThreadCurrentCulture.Name))
+                cachedTranslations.Clear();
 
-            string backUpReturn = string.IsNullOrWhiteSpace(FallbackValue) ? string.Empty : FallbackValue;
-
-            if (!cachedIncludedTranslations.Contains(CultureInfo.DefaultThreadCurrentCulture.Name.ToLower()))
+            if (weakTargetReference.IsAlive)
             {
+                DependencyObject target = (DependencyObject)weakTargetReference.Target;
+                string backUpReturn = string.IsNullOrWhiteSpace(FallbackValue) ? string.Empty : FallbackValue;
+
+                if (!cachedIncludedTranslations.Contains(CultureInfo.DefaultThreadCurrentCulture.Name.ToLower()))
+                {
+                    target.Dispatcher.Invoke(() =>
+                    {
+                        target.SetValue(targetProperty, backUpReturn);
+                    });
+
+                    return;
+                }
+
+                ReadInTranslations(CultureInfo.DefaultThreadCurrentCulture.Name);
+
                 target.Dispatcher.Invoke(() =>
                 {
-                    target.SetValue(targetProperty, backUpReturn);
+                    if (cachedTranslations.ContainsKey(TranslationKey))
+                        target.SetValue(targetProperty, cachedTranslations[TranslationKey]);
+                    else
+                        target.SetValue(targetProperty, backUpReturn);
                 });
-
-                return;
             }
-
-            ReadInTranslations(CultureInfo.DefaultThreadCurrentCulture.Name);
-
-            target.Dispatcher.Invoke(() =>
+            else
             {
-                if (cachedTranslations.ContainsKey(TranslationKey))
-                    target.SetValue(targetProperty, cachedTranslations[TranslationKey]);
-                else
-                    target.SetValue(targetProperty, backUpReturn);
-            });
+                // when the culture changes if our target is not alive then just clean up
+                Debug.WriteLine($"TranslationKey:{TranslationKey} clean up");
+
+                TranslationBindingManager.CultureChanged -= TranslationBindingManager_CultureChanged;
+
+                weakTargetReference = null;
+                targetProperty = null;
+                translationKey = null;
+                fallbackValue = null;
+            }
         }
 
         private void GetIncludedTranslationNames()
@@ -153,7 +171,7 @@ namespace WPF.Translations.TranslationBinding
 
             ValidateTargetObjectAndProperty(serviceProvider);
 
-            if (DesignerProperties.GetIsInDesignMode(target)) return backUpReturn;
+            if (DesignerProperties.GetIsInDesignMode((DependencyObject)weakTargetReference.Target)) return backUpReturn;
 
             // this should probably be some kind of WeakEventManager/IWeakEventListener or some how tie a WeakReference to the DependencyObject
             TranslationBindingManager.CultureChanged += TranslationBindingManager_CultureChanged;
@@ -167,7 +185,8 @@ namespace WPF.Translations.TranslationBinding
                 // make sure the culture exists in the collection of translation resources
                 if (!cachedIncludedTranslations.Contains(CultureInfo.DefaultThreadCurrentCulture.Name.ToLower())) return backUpReturn;
 
-                ReadInTranslations(CultureInfo.DefaultThreadCurrentCulture.Name);
+                if (cachedTranslations.Count == 0)
+                    ReadInTranslations(CultureInfo.DefaultThreadCurrentCulture.Name);
 
                 string val = string.Empty;
 
@@ -203,9 +222,11 @@ namespace WPF.Translations.TranslationBinding
         {
             IProvideValueTarget provideValueTarget = (IProvideValueTarget)serviceProvider?.GetService(typeof(IProvideValueTarget));
 
-            target = provideValueTarget?.TargetObject as DependencyObject;
+            DependencyObject target = provideValueTarget?.TargetObject as DependencyObject;
 
             if (target == null) throw new NotSupportedException("TargetObject must be a DependencyObject.");
+
+            weakTargetReference = new WeakReference(target, false);
 
             targetProperty = provideValueTarget?.TargetProperty as DependencyProperty;
 

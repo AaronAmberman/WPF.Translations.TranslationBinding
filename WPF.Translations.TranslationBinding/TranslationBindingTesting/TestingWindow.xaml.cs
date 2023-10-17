@@ -10,26 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TranslationBindingTesting
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for TestingWindow.xaml
+    /// </summary>
+    public partial class TestingWindow : Window
     {
-        public MainWindow()
+        public TestingWindow()
         {
-            ServiceLocator.Instance.MainWindowViewModel.Dispatcher = Dispatcher;
-
-            DataContext = ServiceLocator.Instance.MainWindowViewModel;
-
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            TestingWindow testingWindow = new TestingWindow();
-            testingWindow.ShowDialog();
         }
     }
 }

@@ -11,7 +11,7 @@
         Title="{Binding Translations.MainWindowTitle, FallbackValue=LTT WPF Application Template}" 
         Height="768" Width="1024" WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}">
-    <Grid  x:Name="mainGrid" Style="{StaticResource GridStyle}">
+    <Grid x:Name="mainGrid" Style="{StaticResource GridStyle}">
         <Grid x:Name="innerMainGrid" Margin="5">
             <Grid>
                 <Grid.RowDefinitions>
@@ -21,13 +21,15 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <!-- header -->
-                    <!--<Button BorderThickness="0" HorizontalAlignment="Right" Content="{StaticResource Settings}" Command="{Binding ShowSettingsCommand}"
-                            ToolTip="{Binding Translations.Settings}" />-->
                     <Button BorderThickness="0" HorizontalAlignment="Right" Content="{StaticResource Settings}" Command="{Binding ShowSettingsCommand}"
-                            ToolTip="{tb:TranslationBinding TranslationKey=Settings, FallbackValue=Settings}" />
+                            ToolTip="{Binding Translations.Settings}" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <!-- content -->
+                    <TextBlock Style="{StaticResource TextBlockForegroundStyle}" VerticalAlignment="Top"
+                               Text="{tb:TranslationBinding TranslationKey=LogFileNotExistsMessage, FallbackValue=Log file message}" />
+                    <Button Content="Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,30,0,0"
+                            Click="Button_Click" />
                 </Grid>
                 <Grid Grid.Row="2">
                     <!-- footer -->
