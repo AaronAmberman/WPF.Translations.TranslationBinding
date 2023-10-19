@@ -11,6 +11,7 @@ using TranslationBindingTesting.Properties;
 using TranslationBindingTesting.Theming;
 using WPF.InternalDialogs;
 using WPF.Translations;
+using WPF.Translations.TranslationBinding;
 
 namespace TranslationBindingTesting.ViewModels
 {
@@ -172,7 +173,9 @@ namespace TranslationBindingTesting.ViewModels
                 ServiceLocator.Instance.MainWindowViewModel.Translations = new Translation(new ResourceDictionary
                 {
                     Source = new Uri($"pack://application:,,,/Translations/Translations.{Settings.Default.Language}.xaml")
-                }, new ResourceDictionaryTranslationDataProvider(), false); ;
+                }, new ResourceDictionaryTranslationDataProvider(), false);
+
+                //TranslationBindingManager.RefreshTranslations();
             }
 
             if (!string.IsNullOrWhiteSpace(LogPath))

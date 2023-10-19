@@ -28,7 +28,12 @@
                     <!-- content -->
                     <TextBlock Style="{StaticResource TextBlockForegroundStyle}" VerticalAlignment="Top"
                                Text="{tb:TranslationBinding TranslationKey=LogFileNotExistsMessage, FallbackValue=Log file message}" />
-                    <Button Content="Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,30,0,0"
+                    <TextBlock Margin="0,30,0,0" Style="{StaticResource TextBlockForegroundStyle}" VerticalAlignment="Top"
+                               Text="{tb:TranslationBinding TranslationKey=Testing, FallbackValue=Testing parameters, 
+                                                            Parameter={Binding Version}}" />
+                    <TextBlock Style="{StaticResource TextBlockForegroundStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,60,0,0"
+                               Text="{Binding Version}" />
+                    <Button Content="Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,90,0,0"
                             Click="Button_Click" />
                 </Grid>
                 <Grid Grid.Row="2">

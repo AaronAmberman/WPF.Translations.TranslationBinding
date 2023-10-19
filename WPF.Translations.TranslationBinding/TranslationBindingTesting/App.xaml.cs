@@ -12,6 +12,7 @@ using TranslationBindingTesting.Services;
 using TranslationBindingTesting.Theming;
 using TranslationBindingTesting.ViewModels;
 using WPF.Translations;
+using WPF.Translations.TranslationBinding;
 
 namespace TranslationBindingTesting
 {
@@ -86,6 +87,9 @@ namespace TranslationBindingTesting
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Settings.Default.Language);
 
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Settings.Default.Language);
+
+            TranslationBindingManager.RefreshAutomatically = true;
+            //TranslationBindingManager.FireCultureChanged();
 
             // set translations
             ServiceLocator.Instance.MainWindowViewModel.Translations = new Translation(new ResourceDictionary

@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TranslationBindingTesting"
         xmlns:tb="clr-namespace:WPF.Translations.TranslationBinding;assembly=WPF.Translations.TranslationBinding"
+        xmlns:viewModels="clr-namespace:TranslationBindingTesting.ViewModels"
         mc:Ignorable="d"
         Title="TestingWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid Style="{StaticResource GridStyle}">
         <Grid Margin="5">
             <TextBlock Style="{StaticResource TextBlockForegroundStyle}" VerticalAlignment="Top"
-                       Text="{tb:TranslationBinding TranslationKey=AboutAppMessage, FallbackValue=About the application}" />
+                       Text="{tb:TranslationBinding TranslationKey=AboutAppMessage, FallbackValue=About application}" />
         </Grid>
     </Grid>
 </Window>
