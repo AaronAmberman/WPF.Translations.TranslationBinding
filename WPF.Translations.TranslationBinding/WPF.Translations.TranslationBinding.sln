@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.Translations.TranslationBinding", "WPF.Translations.TranslationBinding\WPF.Translations.TranslationBinding.csproj", "{0A8FF9A7-6794-4ABA-BFD0-8576FB7BDF3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF.Translations.TranslationBinding", "WPF.Translations.TranslationBinding\WPF.Translations.TranslationBinding.csproj", "{0A8FF9A7-6794-4ABA-BFD0-8576FB7BDF3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslationBindingTesting", "TranslationBindingTesting\TranslationBindingTesting.csproj", "{0CE8776C-5CF2-456E-8187-741D6ED24016}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TranslationBindingTesting", "TranslationBindingTesting\TranslationBindingTesting.csproj", "{0CE8776C-5CF2-456E-8187-741D6ED24016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomControlTesting", "CustomControlTesting\CustomControlTesting.csproj", "{12DF7CD4-88F3-48BF-9887-EC9B7EF91425}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0CE8776C-5CF2-456E-8187-741D6ED24016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CE8776C-5CF2-456E-8187-741D6ED24016}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CE8776C-5CF2-456E-8187-741D6ED24016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12DF7CD4-88F3-48BF-9887-EC9B7EF91425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12DF7CD4-88F3-48BF-9887-EC9B7EF91425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12DF7CD4-88F3-48BF-9887-EC9B7EF91425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12DF7CD4-88F3-48BF-9887-EC9B7EF91425}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

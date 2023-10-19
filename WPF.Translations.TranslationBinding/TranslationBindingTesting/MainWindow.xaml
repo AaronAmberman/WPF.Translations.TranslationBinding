@@ -7,6 +7,7 @@
         xmlns:viewModels="clr-namespace:TranslationBindingTesting.ViewModels"
         xmlns:internalDialogs="clr-namespace:WPF.InternalDialogs;assembly=WPF.InternalDialogs"
         xmlns:tb="clr-namespace:WPF.Translations.TranslationBinding;assembly=WPF.Translations.TranslationBinding"
+        xmlns:cc="clr-namespace:CustomControlTesting;assembly=CustomControlTesting"
         mc:Ignorable="d"
         Title="{Binding Translations.MainWindowTitle, FallbackValue=LTT WPF Application Template}" 
         Height="768" Width="1024" WindowStartupLocation="CenterScreen"
@@ -35,6 +36,8 @@
                                Text="{Binding Version}" />
                     <Button Content="Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,90,0,0"
                             Click="Button_Click" />
+                    <cc:TranslationBindingUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,150,0,0" />
+                    <cc:TranslationBindingCustomControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120,0,0" />
                 </Grid>
                 <Grid Grid.Row="2">
                     <!-- footer -->

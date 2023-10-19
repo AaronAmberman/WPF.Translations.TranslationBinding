@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CustomControlTesting\CustomControlTesting.csproj" />
     <ProjectReference Include="..\WPF.Translations.TranslationBinding\WPF.Translations.TranslationBinding.csproj" />
   </ItemGroup>
 

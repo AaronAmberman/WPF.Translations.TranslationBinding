@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Page Remove="Translations\Translations.en.xaml" />
+    <Page Remove="Translations\Translations.fr.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WPF.Translations.TranslationBinding\WPF.Translations.TranslationBinding.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Translations\Translations.en.xaml" />
+    <Resource Include="Translations\Translations.fr.xaml" />
+  </ItemGroup>
+
+</Project>

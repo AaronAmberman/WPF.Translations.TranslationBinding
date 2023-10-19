@@ -88,8 +88,8 @@ namespace TranslationBindingTesting
 
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Settings.Default.Language);
 
-            TranslationBindingManager.RefreshAutomatically = true;
-            //TranslationBindingManager.FireCultureChanged();
+            TranslationBindingOperations.RefreshAutomatically = true;
+            //TranslationBindingOperations.RefreshTranslations();
 
             // set translations
             ServiceLocator.Instance.MainWindowViewModel.Translations = new Translation(new ResourceDictionary
