@@ -26,8 +26,9 @@ namespace WPF.Translations.TranslationBinding
 
         /// <summary>
         /// Gets or sets whether or not the CultureChanged event fires automatically after 
-        /// CultureInfo.DefaultThreadCurrentCulture changes. False requires FireCultureChanged 
-        /// to be called manually. Default is false. 
+        /// CultureInfo.DefaultThreadCurrentCulture (or CultureInfo.DefaultThreadCurrentUICulture 
+        /// (if UseUICulture = true)) changes. False requires FireCultureChanged to be called 
+        /// manually. Default is false. 
         /// </summary>
         public static bool RefreshAutomatically
         {
@@ -114,39 +115,22 @@ namespace WPF.Translations.TranslationBinding
                  * We need a FrameworkElement or FrameworkContentElement to determine this.
                  */
 
-                FrameworkElement fe = target as FrameworkElement; // one of these will be null
-                FrameworkContentElement fce = target as FrameworkContentElement; // one of these will be null
+                FrameworkWrapper fw = new FrameworkWrapper(target);
 
-                if (fe != null)
+                if (fw != null)
                 {
-                    if (fe.Parent == null && fe.TemplatedParent == null) root = null;
+                    if (fw.Parent == null && fw.TemplatedParent == null) root = null;
                     else
                     {
-                        while (fe != null && fe.TemplatedParent == null)
+                        while (fw != null && fw.TemplatedParent == null)
                         {
                             // if both Parent and TemplatedParent are null then we have no where to go
-                            if (fe.Parent == null) break;
+                            if (fw.Parent == null) break;
 
-                            fe = fe.Parent as FrameworkElement;
+                            fw = new FrameworkWrapper(fw.Parent);
                         }
 
-                        if (fe != null) root = fe.TemplatedParent;
-                    }
-                }
-                else if (fce != null)
-                {
-                    if (fce.Parent == null && fce.TemplatedParent == null) root = null;
-                    else
-                    {
-                        while (fce != null && fce.TemplatedParent == null)
-                        {
-                            // if both Parent and TemplatedParent are null then we have no where to go
-                            if (fce.Parent == null) break;
-
-                            fce = fce.Parent as FrameworkContentElement;
-                        }
-
-                        if (fce != null) root = fce.TemplatedParent;
+                        if (fw != null) root = fw.TemplatedParent;
                     }
                 }
             }

@@ -27,6 +27,7 @@ namespace WPF.Translations.TranslationBinding
         private DependencyProperty targetProperty;
         private List<string> translationsIncluded;
         private string translationKey;
+        private ITranslationProvider translationProvider;
         private Assembly translationProviderAssembly;
         private Type translationProviderType;
         private WeakReference weakTargetReference;
@@ -247,8 +248,9 @@ namespace WPF.Translations.TranslationBinding
                 }
 
                 /*
-                 * There could be multiple translation sources at play (from multiple assemblies), we will do we what can 
-                 * to read in those as well. If there is a conflicting key then that key won't be added.
+                 * There could be multiple translation sources at play (from multiple assemblies (this is because the collection of 
+                 * translations is cached statically)), we will do we what can to read in those as well. If there is a conflicting 
+                 * key then that key won't be added.
                  */
                 ReadInTranslations(TranslationBindingOperations.GetCurrentCultureName());
 
@@ -274,8 +276,14 @@ namespace WPF.Translations.TranslationBinding
                  * 
                  * There is a hard coded nomenclature in this scenario as well. The API looks for 
                  * pack://application:,,,/Translations/Translations.{culture}.xaml. So your translations 
-                 * resources must be in a Translations directory and be called Translations.culture.xaml. Where
+                 * resources must be in a Translations directory and be called Translations.{culture}.xaml. Where
                  * culture is the name of the desired culture; en, en-GB, es, es-MX, fr, ut, ko, zh-Hans, etc.
+                 * It should be noted that the first part of the pack URI string doesn't matter but the second 
+                 * half must point to a Translation directory that has Translations.{culture}.xaml. E.g.
+                 * pack://application:,,,/Translations/Translations.de.xaml
+                 * pack://application:,,,AssemblyName;component/Translations/Translations.en-GB.xaml
+                 * pack://application:,,,AssemblyName;v1.2.3.4;component/Translations/Translations.zh-Hans.xaml
+                 * etc.
                  * 
                  * Key thing to note the culture name must exactly match what the 
                  * CultureInfo.DefaultThreadCurrentCulture (or CultureInfo.DefaultThreadCurrentUICulture 
@@ -294,7 +302,11 @@ namespace WPF.Translations.TranslationBinding
                     Source = new Uri(resource)
                 };
 
-                // move translations to a dictionary so we have fast lookup (only needs to be done once, until languaged is changed)
+                /*
+                 * move translations to a dictionary so we have fast lookup (only needs to be done once, until languaged is changed),
+                 * translations can also come from multiple sources so we will accumulate translations as we go (no duplicate keys 
+                 * though)
+                 */
                 foreach (string key in resourceDictionary.Keys)
                 {
                     if (cachedTranslations.ContainsKey(key)) continue;
@@ -305,10 +317,16 @@ namespace WPF.Translations.TranslationBinding
             else
             {
                 // create an instance of the translation provider and get our translations for the culture
-                ITranslationProvider translationProvider = (ITranslationProvider)Activator.CreateInstance(translationProviderType);
+                if (translationProvider == null)
+                    translationProvider = (ITranslationProvider)Activator.CreateInstance(translationProviderType);
 
                 IDictionary<string, string> translations = translationProvider.GetTranslationsForCulture(culture);
 
+                /*
+                 * move translations to a dictionary so we have fast lookup (only needs to be done once, until languaged is changed),
+                 * translations can also come from multiple sources so we will accumulate translations as we go (no duplicate keys 
+                 * though)
+                 */
                 foreach (var translation in translations)
                 {
                     if (cachedTranslations.ContainsKey(translation.Key)) continue;
