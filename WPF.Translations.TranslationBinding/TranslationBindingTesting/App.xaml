@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:TranslationBindingTesting"
              xmlns:converters="clr-namespace:TranslationBindingTesting.Converters"
              xmlns:theme="clr-namespace:TranslationBindingTesting.Theming"
+             xmlns:tb="clr-namespace:WPF.Translations.TranslationBinding;assembly=WPF.Translations.TranslationBinding"
              StartupUri="MainWindow.xaml"
              Startup="Application_Startup" Exit="Application_Exit"
              DispatcherUnhandledException="Application_DispatcherUnhandledException">
@@ -14,6 +15,11 @@
             <converters:EqualsMultiConverter x:Key="EqualsMultiConverter" />
             <converters:NotEqualsConverter x:Key="NotEqualsConverter" />
             <converters:NotEqualsMultiConverter x:Key="NotEqualsMultiConverter" />
+
+            <!-- this cannot be done in XAML with the TranslationBindingExtension -->
+            <!--<Style x:Key="TextBlockPropertyUsage" TargetType="TextBlock">
+                <Setter Property="Text" Value="{tb:TranslationBinding TranslationKey=CustomControlTest, FallbackValue=Custom control test fallback 2}" />
+            </Style>-->
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/WpfImagery.xaml" />

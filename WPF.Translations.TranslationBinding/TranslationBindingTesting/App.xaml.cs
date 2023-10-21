@@ -10,6 +10,7 @@ using System.Windows.Threading;
 using TranslationBindingTesting.Properties;
 using TranslationBindingTesting.Services;
 using TranslationBindingTesting.Theming;
+using TranslationBindingTesting.Translations;
 using TranslationBindingTesting.ViewModels;
 using WPF.Translations;
 using WPF.Translations.TranslationBinding;
@@ -21,6 +22,8 @@ namespace TranslationBindingTesting
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             #region Service Initialization
+
+            TranslationBindingOperations.TranslationProvider = new TranslationProvider();
 
             ServiceLocator.Instance.Logger = new Logger();
             ServiceLocator.Instance.ThemingService = new ThemingService();

@@ -2,5 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="CustomControlTest">Custom control test</sys:String>
+    <sys:String x:Key="CustomControlTest2">Custom control test 2</sys:String>
     <sys:String x:Key="UserControlTest">User control test</sys:String>
 </ResourceDictionary>

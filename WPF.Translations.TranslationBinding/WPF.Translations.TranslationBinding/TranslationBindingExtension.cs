@@ -25,11 +25,7 @@ namespace WPF.Translations.TranslationBinding
         private Binding parameter3;
         private object root;
         private DependencyProperty targetProperty;
-        private List<string> translationsIncluded;
         private string translationKey;
-        private ITranslationProvider translationProvider;
-        private Assembly translationProviderAssembly;
-        private Type translationProviderType;
         private WeakReference weakTargetReference;
 
         #endregion
@@ -50,6 +46,17 @@ namespace WPF.Translations.TranslationBinding
         }
 
         internal string InternalFallbackValue => string.IsNullOrWhiteSpace(FallbackValue) ? string.Empty : FallbackValue;
+
+        internal DependencyObject InternalTarget
+        {
+            get
+            {
+                if (internalTarget == null)
+                    internalTarget = (DependencyObject)weakTargetReference.Target;
+
+                return internalTarget;
+            }
+        }
 
         /// <summary>Gets or sets the parameter to feed into the translation string for string.Format purposes.</summary>
         public Binding Parameter
@@ -87,17 +94,6 @@ namespace WPF.Translations.TranslationBinding
                     throw new InvalidOperationException("Binding property Parameter3 cannot be null.");
 
                 parameter3 = value;
-            }
-        }
-
-        internal DependencyObject InternalTarget
-        {
-            get
-            {
-                if (internalTarget == null) 
-                    internalTarget = (DependencyObject)weakTargetReference.Target;
-
-                return internalTarget;
             }
         }
 
@@ -163,35 +159,6 @@ namespace WPF.Translations.TranslationBinding
             return value;
         }
 
-        private void GetTranslationProviderAssembly(IServiceProvider serviceProvider)
-        {
-            root = TranslationBindingOperations.GetRootObjectForTranslationBinding(serviceProvider, InternalTarget);
-            
-            // if we could not find a root then use the entry assembly
-            if (root == null)
-                translationProviderAssembly = Assembly.GetEntryAssembly();
-            else
-            {
-                Type type = root.GetType();
-
-                // load the assembly the tpye is from
-                translationProviderAssembly = Assembly.GetAssembly(type);
-
-                // if that didn't work use the entry assembly as a back up
-                if (translationProviderAssembly == null)
-                    translationProviderAssembly = Assembly.GetEntryAssembly();
-            }
-
-            if (translationProviderAssembly == null)
-                throw new CultureNotFoundException("TranslationBinding could not locate translation provider assembly.");
-
-            /*
-             * look for an instance of ITranslationProvider in the assembly, 
-             * if one is found then use that to provide included translations
-             */
-            translationProviderType = translationProviderAssembly.GetTypes().FirstOrDefault(t => typeof(ITranslationProvider).IsAssignableFrom(t));
-        }
-
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             /*
@@ -227,32 +194,19 @@ namespace WPF.Translations.TranslationBinding
             // we don't need to translate anything if we are in design mode
             if (DesignerProperties.GetIsInDesignMode(InternalTarget)) return InternalFallbackValue;
 
+            // we have to have a translation provider
+            if (TranslationBindingOperations.TranslationProvider == null)
+                throw new InvalidOperationException("TranslationBindingOperations.TranslationProvider is required.");
+
             // connect our instance to the signal that will tell us we need to retranslate
             TranslationBindingOperations.CultureChanged += TranslationBindingOperations_CultureChanged;
 
             try
             {
-                GetTranslationProviderAssembly(serviceProvider);
-
-                if (translationProviderType == null)
-                {
-                    // if the developers did not provide an ITranslationProvider then we need to locate the resources ourselves
-                    translationsIncluded = TranslationBindingOperations.GetTranslationResourcesFromAssemblyManifest(translationProviderAssembly);
-
-                    // if we somehow could not find the included collection of translations then we cannot locate our resources, so bail
-                    if (translationsIncluded == null || translationsIncluded.Count == 0)
-                        return InternalFallbackValue;
-
-                    if (!TranslationsIncludedHasCulture())
-                        return InternalFallbackValue;
-                }
-
-                /*
-                 * There could be multiple translation sources at play (from multiple assemblies (this is because the collection of 
-                 * translations is cached statically)), we will do we what can to read in those as well. If there is a conflicting 
-                 * key then that key won't be added.
-                 */
                 ReadInTranslations(TranslationBindingOperations.GetCurrentCultureName());
+
+                if (cachedTranslations.Count == 0) 
+                    return InternalFallbackValue;
 
                 string translated = Translate();
 
@@ -266,73 +220,13 @@ namespace WPF.Translations.TranslationBinding
 
         private void ReadInTranslations(string culture)
         {
-            if (translationProviderType == null)
+            IDictionary<string, string> translations = TranslationBindingOperations.TranslationProvider.GetTranslationsForCulture(culture);
+
+            foreach (var translation in translations)
             {
-                /*
-                 * If the developers did not provide a ITranslationProvider in their assembly then this API, 
-                 * by default, will assume the translation resource is embedded in the assembly because it was
-                 * marked as a "Resource" under properties and will use pack application strings to attempt to 
-                 * locate resources.
-                 * 
-                 * There is a hard coded nomenclature in this scenario as well. The API looks for 
-                 * pack://application:,,,/Translations/Translations.{culture}.xaml. So your translations 
-                 * resources must be in a Translations directory and be called Translations.{culture}.xaml. Where
-                 * culture is the name of the desired culture; en, en-GB, es, es-MX, fr, ut, ko, zh-Hans, etc.
-                 * It should be noted that the first part of the pack URI string doesn't matter but the second 
-                 * half must point to a Translation directory that has Translations.{culture}.xaml. E.g.
-                 * pack://application:,,,/Translations/Translations.de.xaml
-                 * pack://application:,,,AssemblyName;component/Translations/Translations.en-GB.xaml
-                 * pack://application:,,,AssemblyName;v1.2.3.4;component/Translations/Translations.zh-Hans.xaml
-                 * etc.
-                 * 
-                 * Key thing to note the culture name must exactly match what the 
-                 * CultureInfo.DefaultThreadCurrentCulture (or CultureInfo.DefaultThreadCurrentUICulture 
-                 * (if UseUICulture = true)) was set to or else the translation will not be found.
-                 * 
-                 * If we are here then we are sure our culture is found in our resources.
-                 */
+                if (cachedTranslations.ContainsKey(translation.Key)) continue;
 
-                // this API requires XAML resources to be marked as Resource so pack application strings work
-                AssemblyName name = translationProviderAssembly.GetName();
-
-                string resource = $"pack://application:,,,/{name.Name};v{name.Version};component/Translations/Translations.{culture}.xaml";
-
-                ResourceDictionary resourceDictionary = new ResourceDictionary
-                {
-                    Source = new Uri(resource)
-                };
-
-                /*
-                 * move translations to a dictionary so we have fast lookup (only needs to be done once, until languaged is changed),
-                 * translations can also come from multiple sources so we will accumulate translations as we go (no duplicate keys 
-                 * though)
-                 */
-                foreach (string key in resourceDictionary.Keys)
-                {
-                    if (cachedTranslations.ContainsKey(key)) continue;
-
-                    cachedTranslations.Add(key, resourceDictionary[key].ToString());
-                }
-            }
-            else
-            {
-                // create an instance of the translation provider and get our translations for the culture
-                if (translationProvider == null)
-                    translationProvider = (ITranslationProvider)Activator.CreateInstance(translationProviderType);
-
-                IDictionary<string, string> translations = translationProvider.GetTranslationsForCulture(culture);
-
-                /*
-                 * move translations to a dictionary so we have fast lookup (only needs to be done once, until languaged is changed),
-                 * translations can also come from multiple sources so we will accumulate translations as we go (no duplicate keys 
-                 * though)
-                 */
-                foreach (var translation in translations)
-                {
-                    if (cachedTranslations.ContainsKey(translation.Key)) continue;
-
-                    cachedTranslations.Add(translation.Key, translation.Value);
-                }
+                cachedTranslations.Add(translation.Key, translation.Value);
             }
         }
 
@@ -374,21 +268,14 @@ namespace WPF.Translations.TranslationBinding
 
             if (weakTargetReference.IsAlive)
             {
-                if (!TranslationsIncludedHasCulture())
-                {
-                    InternalTarget.Dispatcher.Invoke(() =>
-                    {
-                        InternalTarget.SetValue(targetProperty, InternalFallbackValue);
-                    });
-
-                    return;
-                }
-
                 ReadInTranslations(TranslationBindingOperations.GetCurrentCultureName());
 
                 InternalTarget.Dispatcher.Invoke(() =>
                 {
-                    string translated = Translate();
+                    string translated = InternalFallbackValue;
+
+                    if (cachedTranslations.Count > 0)
+                        translated = Translate();
 
                     InternalTarget.SetValue(targetProperty, translated);
                 });
@@ -403,21 +290,6 @@ namespace WPF.Translations.TranslationBinding
                 translationKey = null;
                 fallbackValue = null;
             }
-        }
-
-        private bool TranslationsIncludedHasCulture()
-        {
-            bool matched = false;
-
-            string culture = TranslationBindingOperations.GetCurrentCultureName();
-
-            foreach (string ti in translationsIncluded)
-            {
-                if (ti.Contains(culture, StringComparison.OrdinalIgnoreCase))
-                    matched = true;
-            }
-
-            return matched;
         }
 
         #endregion
