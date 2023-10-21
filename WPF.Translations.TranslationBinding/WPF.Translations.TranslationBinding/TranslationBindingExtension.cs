@@ -203,8 +203,11 @@ namespace WPF.Translations.TranslationBinding
 
             try
             {
-                ReadInTranslations(TranslationBindingOperations.GetCurrentCultureName());
+                // if another instance read in the translations then we dont' need to
+                if (cachedTranslations.Count == 0)
+                    ReadInTranslations(TranslationBindingOperations.GetCurrentCultureName());
 
+                // make sure we have translations
                 if (cachedTranslations.Count == 0) 
                     return InternalFallbackValue;
 
