@@ -17,7 +17,6 @@ namespace WPF.Translations.TranslationBinding
     {
         #region Fields
 
-        private static Dictionary<string, string> cachedTranslations = new Dictionary<string, string>();
         private string fallbackValue = "[Translation default fallback value.]";
         private DependencyObject internalTarget;
         private Binding parameter;
@@ -204,11 +203,11 @@ namespace WPF.Translations.TranslationBinding
             try
             {
                 // if another instance read in the translations then we dont' need to
-                if (cachedTranslations.Count == 0)
-                    ReadInTranslations(TranslationBindingOperations.GetCurrentCultureName());
+                if (TranslationBindingOperations.CachedTranslations.Count == 0)
+                    TranslationBindingOperations.ReadInTranslationsForCulture(TranslationBindingOperations.GetCurrentCultureName());
 
                 // make sure we have translations
-                if (cachedTranslations.Count == 0) 
+                if (TranslationBindingOperations.CachedTranslations.Count == 0) 
                     return InternalFallbackValue;
 
                 string translated = Translate();
@@ -221,28 +220,16 @@ namespace WPF.Translations.TranslationBinding
             }
         }
 
-        private void ReadInTranslations(string culture)
-        {
-            IDictionary<string, string> translations = TranslationBindingOperations.TranslationProvider.GetTranslationsForCulture(culture);
-
-            foreach (var translation in translations)
-            {
-                if (cachedTranslations.ContainsKey(translation.Key)) continue;
-
-                cachedTranslations.Add(translation.Key, translation.Value);
-            }
-        }
-
         private string Translate()
         {
             string val = string.Empty;
 
             // we could not get our translations for some reason so just return the fallback value
-            if (cachedTranslations.Count == 0)
+            if (TranslationBindingOperations.CachedTranslations.Count == 0)
                 val = InternalFallbackValue;
             else
             {
-                if (cachedTranslations.ContainsKey(TranslationKey))
+                if (TranslationBindingOperations.CachedTranslations.ContainsKey(TranslationKey))
                 {
                     object parameter1Value = null;
                     object parameter2Value = null;
@@ -257,7 +244,7 @@ namespace WPF.Translations.TranslationBinding
                     if (Parameter3 != null)
                         parameter3Value = TranslationBindingOperations.GetValueFromBinding(Parameter3, InternalTarget, targetProperty);
 
-                    val = FormatTranslation(cachedTranslations[TranslationKey], parameter1Value, parameter2Value, parameter3Value);
+                    val = FormatTranslation(TranslationBindingOperations.CachedTranslations[TranslationKey], parameter1Value, parameter2Value, parameter3Value);
                 }
                 else val = InternalFallbackValue;
             }
@@ -267,17 +254,17 @@ namespace WPF.Translations.TranslationBinding
 
         private void TranslationBindingOperations_CultureChanged(object sender, EventArgs e)
         {
-            cachedTranslations.Clear();
+            TranslationBindingOperations.CachedTranslations.Clear();
 
             if (weakTargetReference.IsAlive)
             {
-                ReadInTranslations(TranslationBindingOperations.GetCurrentCultureName());
+                TranslationBindingOperations.ReadInTranslationsForCulture(TranslationBindingOperations.GetCurrentCultureName());
 
                 InternalTarget.Dispatcher.Invoke(() =>
                 {
                     string translated = InternalFallbackValue;
 
-                    if (cachedTranslations.Count > 0)
+                    if (TranslationBindingOperations.CachedTranslations.Count > 0)
                         translated = Translate();
 
                     InternalTarget.SetValue(targetProperty, translated);

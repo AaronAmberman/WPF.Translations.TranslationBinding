@@ -12,7 +12,7 @@ namespace TranslationBindingTesting.ViewModels
         #region Fields
 
         private ICommand showSettingsCommand;
-        private Translation translations;
+        //private Translation translations;
         private string version;
 
         #endregion
@@ -29,16 +29,16 @@ namespace TranslationBindingTesting.ViewModels
 
         public ICommand ShowSettingsCommand => showSettingsCommand ??= new RelayCommand(ShowSettings);
 
-        public dynamic Translations
-        {
-            get => translations;
-            set
-            {
-                translations = value;
-                OnPropertyChanged();
+        //public dynamic Translations
+        //{
+        //    get => translations;
+        //    set
+        //    {
+        //        translations = value;
+        //        OnPropertyChanged();
 
-            }
-        }
+        //    }
+        //}
 
         public string Version
         {

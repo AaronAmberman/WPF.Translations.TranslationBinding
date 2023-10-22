@@ -22,8 +22,10 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <!-- header -->
+                    <!--<Button BorderThickness="0" HorizontalAlignment="Right" Content="{StaticResource Settings}" Command="{Binding ShowSettingsCommand}"
+                            ToolTip="{Binding Translations.Settings}" />-->
                     <Button BorderThickness="0" HorizontalAlignment="Right" Content="{StaticResource Settings}" Command="{Binding ShowSettingsCommand}"
-                            ToolTip="{Binding Translations.Settings}" />
+                            ToolTip="{tb:TranslationBinding TranslationKey=Settings, FallbackValue=Settings}" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -65,7 +67,7 @@
                                                         TitleAreaBackground="{DynamicResource TranslationBindingTesting.InternalDialog.Title}" 
                                                         AnswerAreaBackground="{DynamicResource TranslationBindingTesting.InternalDialog.ButtonArea}" 
                                                         ContentBackground="{DynamicResource TranslationBindingTesting.InternalDialog}"
-                                                        TitleContent="{Binding Translations.Settings, FallbackValue=Settings}" 
+                                                        TitleContent="{tb:TranslationBinding TranslationKey=Settings, FallbackValue=Settings}" 
                                                         Visibility="{Binding SettingsViewModel.Visibility, FallbackValue=Collapsed}"
                                                         Result="{Binding SettingsViewModel.Result, Mode=OneWayToSource}"
                                                         FocusParent="{Binding ElementName=mainGrid}">
@@ -85,8 +87,10 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    <!--<TextBlock Grid.Column="0" Margin="0,0,5,0" Padding="0,1,0,0" 
+                               Text="{Binding Translations.Language, FallbackValue=Language}"  />-->
                     <TextBlock Grid.Column="0" Margin="0,0,5,0" Padding="0,1,0,0" 
-                               Text="{Binding Translations.Language, FallbackValue=Language}"  />
+                               Text="{tb:TranslationBinding TranslationKey=Language, FallbackValue=Language}" />
                     <ComboBox Grid.Column="1" ItemsSource="{Binding SettingsViewModel.Languages}" SelectedItem="{Binding SettingsViewModel.SelectedLanguage}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -100,11 +104,13 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    <!--<TextBlock Grid.Column="0" Margin="0,0,5,0" Padding="0,1,0,0" 
+                               Text="{Binding Translations.Theme, FallbackValue=Theme}"  />-->
                     <TextBlock Grid.Column="0" Margin="0,0,5,0" Padding="0,1,0,0" 
-                               Text="{Binding Translations.Theme, FallbackValue=Theme}"  />
+                               Text="{tb:TranslationBinding TranslationKey=Theme, FallbackValue=Theme}" />
                     <ComboBox Grid.Column="1" SelectedIndex="{Binding SettingsViewModel.Theme}">
-                        <ComboBoxItem Content="Light" />
-                        <ComboBoxItem Content="Dark" />
+                        <ComboBoxItem Content="{tb:TranslationBinding TranslationKey=Light, FallbackValue=Light}" />
+                        <ComboBoxItem Content="{tb:TranslationBinding TranslationKey=Dark, FallbackValue=Dark}" />
                     </ComboBox>
                 </Grid>
                 <Grid Grid.Row="2" Margin="0,20,0,0">
@@ -117,15 +123,19 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+                    <!--<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,5,0" Padding="0,1,0,0"
+                               Text="{Binding Translations.LogFile, FallbackValue=Log file}" />-->
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,5,0" Padding="0,1,0,0"
-                               Text="{Binding Translations.LogFile, FallbackValue=Log file}" />
+                               Text="{tb:TranslationBinding TranslationKey=LogFile, FallbackValue=Log file}" />
                     <TextBox x:Name="logFileTextBox" Grid.Column="1" Grid.Row="0" Margin="0,0,5,0"
                              Text="{Binding SettingsViewModel.LogPath}" />
                     <Button Grid.Column="2" Grid.Row="0"
                             Content="{Binding Translations.Browse, FallbackValue=Browse}"
                             Command="{Binding SettingsViewModel.BrowseLogCommand}" />
+                    <!--<TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" FontStyle="Italic" FontSize="10" TextWrapping="Wrap"
+                               Text="{Binding Translations.LogSettingFileNote, FallbackValue=Note: by default the application will log to where it is executing (unless this setting is set) or if that cannot be determined for some reason then it will log to the desktop.}" />-->
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" FontStyle="Italic" FontSize="10" TextWrapping="Wrap"
-                               Text="{Binding Translations.LogSettingFileNote, FallbackValue=Note: by default the application will log to where it is executing (unless this setting is set) or if that cannot be determined for some reason then it will log to the desktop.}" />
+                               Text="{tb:TranslationBinding TranslationKey=LogSettingFileNote, FallbackValue=Note: by default the application will log to where it is executing (unless this setting is set) or if that cannot be determined for some reason then it will log to the desktop.}" />
                 </Grid>
             </Grid>
             <internalDialogs:MovableResizableInternalDialog.AnswerAreaContent>
@@ -136,13 +146,21 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
+                    <!--<Button Grid.Column="0" Width="18" Height="18" Background="Transparent" BorderThickness="0" Padding="0,1,0,0"
+                            Content="{StaticResource About}" ToolTip="{Binding Translations.About}" Command="{Binding SettingsViewModel.AboutCommand}" />-->
                     <Button Grid.Column="0" Width="18" Height="18" Background="Transparent" BorderThickness="0" Padding="0,1,0,0"
-                            Content="{StaticResource About}" ToolTip="{Binding Translations.About}" Command="{Binding SettingsViewModel.AboutCommand}" />
-                    <Button Grid.Column="2" Margin="0,0,5,0" MinWidth="50"
+                            Content="{StaticResource About}" ToolTip="{tb:TranslationBinding TranslationKey=About, FallbackValue=About}" Command="{Binding SettingsViewModel.AboutCommand}" />
+                    <!--<Button Grid.Column="2" Margin="0,0,5,0" MinWidth="50"
                             Content="{Binding Translations.OK, FallbackValue=OK}" 
+                            Command="{Binding SettingsViewModel.OkCommand}" />-->
+                    <Button Grid.Column="2" Margin="0,0,5,0" MinWidth="50"
+                            Content="{tb:TranslationBinding TranslationKey=OK, FallbackValue=OK}" 
                             Command="{Binding SettingsViewModel.OkCommand}" />
-                    <Button Grid.Column="3" MinWidth="50"
+                    <!--<Button Grid.Column="3" MinWidth="50"
                             Content="{Binding Translations.Cancel, FallbackValue=Cancel}" 
+                            Command="{Binding SettingsViewModel.CancelCommand}" />-->
+                    <Button Grid.Column="3" MinWidth="50"
+                            Content="{tb:TranslationBinding TranslationKey=Cancel, FallbackValue=Cancel}" 
                             Command="{Binding SettingsViewModel.CancelCommand}" />
                 </Grid>
             </internalDialogs:MovableResizableInternalDialog.AnswerAreaContent>
@@ -152,7 +170,7 @@
                                                         TitleAreaBackground="{DynamicResource TranslationBindingTesting.InternalDialog.Title}" 
                                                         AnswerAreaBackground="{DynamicResource TranslationBindingTesting.InternalDialog.ButtonArea}" 
                                                         ContentBackground="{DynamicResource TranslationBindingTesting.InternalDialog}"
-                                                        TitleContent="{Binding Translations.About, FallbackValue=About}"
+                                                        TitleContent="{tb:TranslationBinding TranslationKey=About, FallbackValue=About}"
                                                         Visibility="{Binding SettingsViewModel.AboutBoxVisibility, FallbackValue=Collapsed}"
                                                         FocusParent="{Binding ElementName=mainGrid}">
             <internalDialogs:MovableResizableInternalDialog.CloseButtonStyle>
@@ -167,11 +185,13 @@
             <Grid>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <TextBlock TextWrapping="Wrap" Style="{StaticResource TextBlockForegroundStyle}">
-                        <Run Text="{Binding Translations.AboutAppMessage, FallbackValue=About application}" />
+                        <!--<Run Text="{Binding Translations.AboutAppMessage, FallbackValue=About application}" />-->
+                        <Run Text="{tb:TranslationBinding TranslationKey=AboutAppMessage, FallbackValue=About application}" />
                         <LineBreak /><LineBreak />
                         <Italic>
-                            <Run Text="{Binding Translations.Version, FallbackValue=Version}" />
-                            <Run Text="{Binding Version, Mode=OneWay}" />
+                            <!--<Run Text="{Binding Translations.Version, FallbackValue=Version}" />
+                            <Run Text="{Binding Version, Mode=OneWay}" />-->
+                            <Run Text="{tb:TranslationBinding TranslationKey=Version, FallbackValue=Version, Parameter={Binding Path=Version, Mode=OneWay}}" />
                         </Italic>
                     </TextBlock>
                 </ScrollViewer>

@@ -10,7 +10,6 @@ using System.Windows.Input;
 using TranslationBindingTesting.Properties;
 using TranslationBindingTesting.Theming;
 using WPF.InternalDialogs;
-using WPF.Translations;
 using WPF.Translations.TranslationBinding;
 
 namespace TranslationBindingTesting.ViewModels
@@ -52,17 +51,17 @@ namespace TranslationBindingTesting.ViewModels
 
         public List<Tuple<string, string>> Languages { get; set; } = new List<Tuple<string, string>>
         {
-            new Tuple<string, string>("en", ServiceLocator.Instance.MainWindowViewModel.Translations.English),
-            new Tuple<string, string>("zh-Hans", ServiceLocator.Instance.MainWindowViewModel.Translations.Chinese), //Chinese (Simplified)
-            new Tuple<string, string>("fr", ServiceLocator.Instance.MainWindowViewModel.Translations.French),
-            new Tuple<string, string>("de", ServiceLocator.Instance.MainWindowViewModel.Translations.German),
-            new Tuple<string, string>("it", ServiceLocator.Instance.MainWindowViewModel.Translations.Italian),
-            new Tuple<string, string>("ja", ServiceLocator.Instance.MainWindowViewModel.Translations.Japanese),
-            new Tuple<string, string>("ko", ServiceLocator.Instance.MainWindowViewModel.Translations.Korean),
-            new Tuple<string, string>("no", ServiceLocator.Instance.MainWindowViewModel.Translations.Norwegian),
-            new Tuple<string, string>("pt", ServiceLocator.Instance.MainWindowViewModel.Translations.Portuguese),
-            new Tuple<string, string>("ru", ServiceLocator.Instance.MainWindowViewModel.Translations.Russian),
-            new Tuple<string, string>("es", ServiceLocator.Instance.MainWindowViewModel.Translations.Spanish)
+            new Tuple<string, string>("en", TranslationBindingOperations.GetTranslation("English")),
+            new Tuple<string, string>("zh-Hans", TranslationBindingOperations.GetTranslation("Chinese")), //Chinese (Simplified)
+            new Tuple<string, string>("fr", TranslationBindingOperations.GetTranslation("French")),
+            new Tuple<string, string>("de", TranslationBindingOperations.GetTranslation("German")),
+            new Tuple<string, string>("it", TranslationBindingOperations.GetTranslation("Italian")),
+            new Tuple<string, string>("ja", TranslationBindingOperations.GetTranslation("Japanese")),
+            new Tuple<string, string>("ko", TranslationBindingOperations.GetTranslation("Korean")),
+            new Tuple<string, string>("no", TranslationBindingOperations.GetTranslation("Norwegian")),
+            new Tuple<string, string>("pt", TranslationBindingOperations.GetTranslation("Portuguese")),
+            new Tuple<string, string>("ru", TranslationBindingOperations.GetTranslation("Russian")),
+            new Tuple<string, string>("es", TranslationBindingOperations.GetTranslation("Spanish"))
         };
 
         public string LogPath
@@ -137,7 +136,7 @@ namespace TranslationBindingTesting.ViewModels
                 Filter = "Text Files(*.txt)|*.txt|Log Files(*.log)|*.log",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 Multiselect = false,
-                Title = ServiceLocator.Instance.MainWindowViewModel.Translations.BrowseTitle,
+                Title = TranslationBindingOperations.GetTranslation("BrowseTitle"),
                 ValidateNames = true
             };
 
@@ -170,13 +169,17 @@ namespace TranslationBindingTesting.ViewModels
 
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Settings.Default.Language);
 
-                ((Translation)ServiceLocator.Instance.MainWindowViewModel.Translations).Dispose();
+                //((Translation)ServiceLocator.Instance.MainWindowViewModel.Translations).Dispose();
 
-                ServiceLocator.Instance.MainWindowViewModel.Translations = new Translation(new ResourceDictionary
-                {
-                    Source = new Uri($"pack://application:,,,/Translations/Translations.{Settings.Default.Language}.xaml")
-                }, new ResourceDictionaryTranslationDataProvider(), false);
+                //ServiceLocator.Instance.MainWindowViewModel.Translations = new Translation(new ResourceDictionary
+                //{
+                //    Source = new Uri($"pack://application:,,,/Translations/Translations.{Settings.Default.Language}.xaml")
+                //}, new ResourceDictionaryTranslationDataProvider(), false);
 
+                /*
+                 * If TranslationBindingOperations.RefreshAutomatically = true; then this method won't need to be called manually.
+                 * However if it were set to false then it would need to be called manually to trigger the CultureChanged event.
+                 */
                 //TranslationBindingOperations.RefreshTranslations();
             }
 
@@ -184,8 +187,10 @@ namespace TranslationBindingTesting.ViewModels
             {
                 if (!File.Exists(LogPath))
                 {
-                    ServiceLocator.Instance.MainWindowViewModel.ShowMessageBox(ServiceLocator.Instance.MainWindowViewModel.Translations.LogFileNotExistsMessage,
-                        ServiceLocator.Instance.MainWindowViewModel.Translations.LogFileNotExistsTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.CriticalError);
+                    string message = TranslationBindingOperations.GetTranslation("LogFileNotExistsMessage");
+                    string title = TranslationBindingOperations.GetTranslation("LogFileNotExistsTitle");
+
+                    ServiceLocator.Instance.MainWindowViewModel.ShowMessageBox(message, title, MessageBoxButton.OK, MessageBoxInternalDialogImage.CriticalError);
 
                     return;
                 }
@@ -233,37 +238,37 @@ namespace TranslationBindingTesting.ViewModels
             switch (language)
             {
                 case "en":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.English);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("English"));
                     break;
                 case "zh-Hans":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.Chinese);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("Chinese"));
                     break;
                 case "fr":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.French);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("French"));
                     break;
                 case "de":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.German);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("German"));
                     break;
                 case "it":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.Italian);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("Italian"));
                     break;
                 case "ja":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.Japanese);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("Japanese"));
                     break;
                 case "ko":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.Korean);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("Korean"));
                     break;
                 case "no":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.Norwegian);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("Norwegian"));
                     break;
                 case "pt":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.Portuguese);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("Portuguese"));
                     break;
                 case "ru":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.Russian);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("Russian"));
                     break;
                 case "es":
-                    SelectedLanguage = new Tuple<string, string>(language, ServiceLocator.Instance.MainWindowViewModel.Translations.Spanish);
+                    SelectedLanguage = new Tuple<string, string>(language, TranslationBindingOperations.GetTranslation("Spanish"));
                     break;
                 default:
                     throw new NotSupportedException();

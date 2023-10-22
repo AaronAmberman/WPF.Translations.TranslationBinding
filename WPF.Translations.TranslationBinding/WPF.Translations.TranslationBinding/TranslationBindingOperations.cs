@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Timers;
 using System.Windows;
@@ -10,15 +12,18 @@ namespace WPF.Translations.TranslationBinding
     {
         #region Fields
 
-        private static Timer timer;
+        private static Dictionary<string, string> cachedTranslations = new Dictionary<string, string>();
         private static string cultureName;
         private static bool refreshAutomatically;
+        private static Timer timer;
         private static ITranslationProvider translationProvider;
         private static bool useUICulture;
 
         #endregion
 
         #region Properties
+
+        internal static Dictionary<string, string> CachedTranslations => cachedTranslations;
 
         /// <summary>
         /// Gets or sets whether or not the CultureChanged event fires automatically after 
@@ -96,6 +101,17 @@ namespace WPF.Translations.TranslationBinding
             return UseUICulture ? CultureInfo.DefaultThreadCurrentUICulture?.Name : CultureInfo.DefaultThreadCurrentCulture?.Name;
         }
 
+        /// <summary>Gets the translation by the specified key.</summary>
+        /// <param name="key">The key for the translation to look for.</param>
+        /// <returns>The translation or null if the key could not be found.</returns>
+        public static string GetTranslation(string key)
+        {
+            if (CachedTranslations.ContainsKey(key)) 
+                return CachedTranslations[key];
+
+            return null;
+        }
+
         internal static object GetValueFromBinding(Binding b, DependencyObject d, DependencyProperty p)
         {
             object result = null;
@@ -108,6 +124,58 @@ namespace WPF.Translations.TranslationBinding
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Reads in the translations for the culture currently set to 
+        /// CultureInfo.DefaultThreadCurrentCulture (or CultureInfo.DefaultThreadCurrentUICulture (if UseUICulture = true)).
+        /// </summary>
+        /// <returns>False if an exception occurred, otherwise true.</returns>
+        /// <remarks>
+        /// This method does not have to be called manually. The API will call this when needed however there are stuations
+        /// where the developer might need translations before the XAML processor/renderer gets to the first TranslationBinding.
+        /// In these cases the translations won't be available yet. To accommodate this need this method can be called and the 
+        /// translations will be read.
+        /// This method does not need to be called whenever the culture changes, this API will handle this. This is essentially
+        /// preloading the translations.
+        /// </remarks>
+        public static bool ReadInTranslationsForCulture()
+        {
+            return ReadInTranslationsForCulture(GetCurrentCultureName());
+        }
+
+        /// <summary>Attempts to read in the translations for a given culture.</summary>
+        /// <param name="culture">The culture to read in translations for.</param>
+        /// <returns>False if an exception occurred, otherwise true.</returns>
+        /// <remarks>
+        /// This method does not have to be called manually. The API will call this when needed however there are stuations
+        /// where the developer might need translations before the XAML processor/renderer gets to the first TranslationBinding.
+        /// In these cases the translations won't be available yet. To accommodate this need this method can be called and the 
+        /// translations will be read.
+        /// This method does not need to be called whenever the culture changes, this API will handle this. This is essentially
+        /// preloading the translations.
+        /// </remarks>
+        public static bool ReadInTranslationsForCulture(string culture)
+        {
+            try
+            {
+                IDictionary<string, string> translations = TranslationProvider.GetTranslationsForCulture(culture);
+
+                foreach (var translation in translations)
+                {
+                    if (CachedTranslations.ContainsKey(translation.Key)) continue;
+
+                    CachedTranslations.Add(translation.Key, translation.Value);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"An error occurred attempting to read in the translations.{Environment.NewLine}{ex}");
+
+                return false;
+            }
         }
 
         /// <summary>Forces the CultureChanged event to occur regardless of whether or not the culture actually changed.</summary>

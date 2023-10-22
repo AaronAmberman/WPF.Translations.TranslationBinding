@@ -12,7 +12,6 @@ using TranslationBindingTesting.Services;
 using TranslationBindingTesting.Theming;
 using TranslationBindingTesting.Translations;
 using TranslationBindingTesting.ViewModels;
-using WPF.Translations;
 using WPF.Translations.TranslationBinding;
 
 namespace TranslationBindingTesting
@@ -91,14 +90,24 @@ namespace TranslationBindingTesting
 
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Settings.Default.Language);
 
+            /*
+             * TranslationBindingOperations.ReadInTranslationsForCulture() needs to be called because the SettingsViewModel
+             * needs access to the names of the cultures for the drop down in settings. 
+             * 
+             * The building of the drop down list could be moved to a loaded event and the need to manually load the translations
+             * would go away. This is another option if the developer did not want to "preload" the translations. This method 
+             * would not need to ne called in the loaded event...only here. This is because by the time the loaded event occurred
+             * the XAML processor/renderer would have loaded the first TranslationBinding instance...which would automatically
+             * load the translations in.
+             */
+            TranslationBindingOperations.ReadInTranslationsForCulture();
             TranslationBindingOperations.RefreshAutomatically = true;
-            //TranslationBindingOperations.RefreshTranslations();
 
             // set translations
-            ServiceLocator.Instance.MainWindowViewModel.Translations = new Translation(new ResourceDictionary
-            {
-                Source = new Uri($"pack://application:,,,/Translations/Translations.{Settings.Default.Language}.xaml")
-            }, new ResourceDictionaryTranslationDataProvider(), false);
+            //ServiceLocator.Instance.MainWindowViewModel.Translations = new Translation(new ResourceDictionary
+            //{
+            //    Source = new Uri($"pack://application:,,,/Translations/Translations.{Settings.Default.Language}.xaml")
+            //}, new ResourceDictionaryTranslationDataProvider(), false);
 
             // need translations for view model
             mainWindowViewModel.SettingsViewModel = new SettingsViewModel();
@@ -126,9 +135,15 @@ namespace TranslationBindingTesting
             {
                 ServiceLocator.Instance.Logger.Error($"An unhandled exception occurred. Details:{Environment.NewLine}{e.Exception}");
 
-                MessageBox.Show(ServiceLocator.Instance.MainWindowViewModel?.Translations.UnhandledErrorMessage ?? "Unhandled exception occurred. We have logged the issue.",
-                    ServiceLocator.Instance.MainWindowViewModel?.Translations.UnhandledErrorTitle ?? "Unhandled Exception",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show(ServiceLocator.Instance.MainWindowViewModel?.Translations.UnhandledErrorMessage ?? "Unhandled exception occurred. We have logged the issue.",
+                //    ServiceLocator.Instance.MainWindowViewModel?.Translations.UnhandledErrorTitle ?? "Unhandled Exception",
+                //    MessageBoxButton.OK, MessageBoxImage.Error);
+
+                string message = TranslationBindingOperations.GetTranslation("UnhandledErrorMessage");
+                string title = TranslationBindingOperations.GetTranslation("UnhandledErrorTitle");
+
+                MessageBox.Show(message ?? "Unhandled exception occurred. We have logged the issue.",
+                    title ?? "Unhandled Exception", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
