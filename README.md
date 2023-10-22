@@ -7,12 +7,21 @@ My other translations API [WPF.Translations](https://github.com/AaronAmberman/WP
 # Basic Usage
 This is not a MS package natively included in WPF so after you add the Nuget package reference to it, you'll need to add a namespace declaration at the top of your XAML file...
 
-```XML
+```XAML
 xmlns:tb="clr-namespace:WPF.Translations.TranslationBinding;assembly=WPF.Translations.TranslationBinding"
 ```
 
 Usage will be very similar to a normal binding...
 
-```XML
+```XAML
 {tb:TranslationBinding TranslationKey=MyKey, FallbackValue=Fallback value for the translation binding.}
 ```
+
+Parameters are supported, more on that below.
+
+# Requirements For Usage
+There are a few things to note about the functionality of the API...
+
+1. CultureInfo.DefaultThreadCurrentCulture or CultureInfo.DefaultThreadCurrentUICulture are used to track whether or not the culture changes. Use CultureInfo.DefaultThreadCurrentCulture if UseUICulture = false and use CultureInfo.DefaultThreadCurrentUICulture if UseUICulture = true. The developer is responsible for setting the CultureInfo property important to them, or both.
+2. ITranslationProvider is required to be implemented by the developer. The interface implementation should be in the WPF application that is the needs the translations. It should not be in satelite assemblies. There should be only one, meaning satelite assemblies should not all implement ITranslationProvider...even if they have their own translation needs. That being said satelite assemblies can have their own translations. More in the examples section. Additional note, the API will throw an InvalidOperationException if a ITranslationProvider is not set on the TranslationBindingOperations.TranslationProvider property before the first translation request is made.
+3. Clean up of old translation bindings happen when the TranslationBindingOperation.CultureInfo is fired. This cannot be changed, modified or managed differently. Call TranslationBindingOperations.RefreshTranslations, even if the culture did not change and the API will clean up old references.
