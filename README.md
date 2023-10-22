@@ -45,7 +45,7 @@ There are a few things to note about the functionality of the API...
 It all sounds kind of complicated but it is really not that complicated.
 
 # Parameters
-The API supports up to 3 parameters for translation bindings. Set the ***Parameter***, ***Parameter2*** or ***Parameter3*** properties as needed. They Parameter properties have to be a binding in XAML. 
+The API supports up to 3 parameters for translation bindings. Set the ***Parameter***, ***Parameter2*** or ***Parameter3*** properties as needed. The Parameter properties have to be a binding in XAML. 
 
 ```XAML
 <TextBlock VerticalAlignment="Top"
