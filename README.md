@@ -143,3 +143,75 @@ As you can see from the screen grab, it has also been mentioned already but you 
 
 ## ITranslationProvider Power
 There is no default implementation of the ***ITranslationProvider*** so it is up to you to tell the API what your translations are. You can use a XAML ResourceDictionary marked as a Resource and use pack application strings to load translations (this is what we do). You can have your XAML ResourceDictionaries copied to the hard drive and read off the HDD...though that is less cool. You could read text files, XML files and even connect to a database to pull in your translations. We just need you to return a Dictionary<string, string> (translation-key, translation) containing the translations...we don't care how you get them. :) 
+
+## XAML Examples
+### Basic Examples
+```XAML
+<TextBlock Grid.Row="0" Style="{StaticResource TextBlockForegroundStyle}" VerticalAlignment="Top"
+           Text="{tb:TranslationBinding TranslationKey=LogFileNotExistsMessage, FallbackValue=Log file message}" />
+<TextBlock Grid.Row="1" Margin="0,0,0,0" Style="{StaticResource TextBlockForegroundStyle}" VerticalAlignment="Top"
+           Text="{tb:TranslationBinding TranslationKey=Testing, FallbackValue=Testing parameters, 
+                                        Parameter={Binding Version}}" />
+```
+
+### Look-less Control Template
+```XAML
+<Style TargetType="{x:Type local:TranslationBindingCustomControl}">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type local:TranslationBindingCustomControl}">
+                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                    <TextBlock Foreground="White" Text="{tb:TranslationBinding TranslationKey=CustomControlTest, FallbackValue=Custom control test fallback}" />
+                </Border>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+```
+
+```XAML
+### Nested ControlTemplates
+<Style TargetType="{x:Type local:NestedTest}">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type local:NestedTest}">
+                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                    <ToggleButton>
+                        <ToggleButton.Style>
+                            <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                                                <TextBlock Foreground="White" 
+                                                           Text="{tb:TranslationBinding TranslationKey=CustomControlTest2, 
+                                                                                        FallbackValue=Custom control test fallback 2}" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
+                </Border>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+```
+
+## Setter.Value Not Valid
+As mentioned already you cannot do this...
+
+```XAML
+<Style x:Key="TextBlockPropertyUsage" TargetType="TextBlock">
+    <Setter Property="Text" Value="{tb:TranslationBinding TranslationKey=CustomControlTest, FallbackValue=Custom control test fallback 2}" />
+</Style>
+```
+
+It will give you an error: "TranslationBindingExtension is not valid for Setter.Value. The only supported MarkupExtension types are DynamicResourceExtension and BindingBase or derived types."
