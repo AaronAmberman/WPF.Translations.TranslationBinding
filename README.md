@@ -135,3 +135,11 @@ Next deciding on whether or not you want to set the ***CultureInfo.DefaultThread
 After that you also need to decide to handle the ***TranslationBindingOperations.CultureChange*** call yourself by calling ***TranslationBindingOperations.RefreshTranslations()*** or by setting ***TranslationBindingOperations.RefreshAutomatically*** to true. If using the automatic route, there is a timer that fires every half a second and if a culture changed is detected then the ***TranslationBindingOperations.CultureChange*** event is fired. So there may be a small delay when changing the culture with the automatic timer.
 
 Reminder that if you need to potentially show translations before any XAML is processed then remember to call ***TranslationBindingOperations.ReadInTranslationsForCulture()*** after setting *CultureInfo.DefaultThreadCurrentCulture* or *CultureInfo.DefaultThreadCurrentUICulture* or both. Then call ***TranslationBindingOperations.GetTranslation(string key)*** with the appropriate key.
+
+### Multiple Translation Sources
+![image](https://github.com/AaronAmberman/WPF.Translations.TranslationBinding/assets/23512394/61c7d700-7645-4bfd-b53a-8395f8b24597)
+
+As you can see from the screen grab, it has also been mentioned already but you can have multiple translation data sources like this. It just depends on how you implement your translations. The example above alonf with the testing project in the repository demonstrate how to achieve this affect.
+
+## ITranslationProvider Power
+There is no default implementation of the ***ITranslationProvider*** so it is up to you to tell the API what your translations are. You can use a XAML ResourceDictionary marked as a Resource and use pack application strings to load translation (this is what we do). You can have your XAML ResourceDictionaries copied to the hard drive and read off the HDD...though that is less cool. You could read text files, XML files and even connect to a database to pull in your translations. We just need you to return a Dictionary<string, string> containing the translations...we don't care how you get them. :) 
