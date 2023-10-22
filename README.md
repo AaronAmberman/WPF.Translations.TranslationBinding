@@ -34,6 +34,7 @@ There are a few things to note about the functionality of the API...
     <Setter Property="Text" Value="{tb:TranslationBinding TranslationKey=Test, FallbackValue=Test fallback}" />
 </Style>
 ```
-  - An error reaing sometihng like; TranslationBindingExtension is not valid for Setter.Value. The only supported MarkupExtension types are DynamicResourceExtension and BindingBase or derived types.
+- An error reaing something like; "TranslationBindingExtension is not valid for Setter.Value. The only supported MarkupExtension types are DynamicResourceExtension and BindingBase or derived types."
   - A TranslationBinding can ***only*** be set on a DependencyObject.
   - If you need this kind of functionality then I suggest checking out my other translation API mentioned above.
+- Translations are a runtime thing not a design time thing. So if you want to see something in the designer then enter a ***FallbackValue***.
