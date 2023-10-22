@@ -22,7 +22,7 @@ Parameters are supported, more on that below.
 # Requirements For Usage
 There are a few things to note about the functionality of the API...
 
-- *CultureInfo.DefaultThreadCurrentCulture* or *CultureInfo.DefaultThreadCurrentUICulture* are used to track whether or not the culture changes. Use *CultureInfo.DefaultThreadCurrentCulture* if ***TranslationBindingOperationsUseUICulture*** = false and use *CultureInfo.DefaultThreadCurrentUICulture* if ***TranslationBindingOperationsUseUICulture*** = true. The developer is responsible for setting the CultureInfo property important to them, or both.
+- *CultureInfo.DefaultThreadCurrentCulture* or *CultureInfo.DefaultThreadCurrentUICulture* are used to track whether or not the culture changes. Use *CultureInfo.DefaultThreadCurrentCulture* if ***TranslationBindingOperations.UseUICulture*** = false and use *CultureInfo.DefaultThreadCurrentUICulture* if ***TranslationBindingOperations.UseUICulture*** = true. The developer is responsible for setting the CultureInfo property important to them, or both.
 - ***ITranslationProvider*** is required to be implemented by the developer. The interface implementation should be in the WPF application that has the need for translations. It should not be in satelite assemblies. There should be only one, meaning satelite assemblies should not all implement ***ITranslationProvider***...even if they have their own translation needs. That being said satelite assemblies can have their own translations. More in the examples section. Additional note, the API will throw an InvalidOperationException if a ***ITranslationProvider*** is not set on the ***TranslationBindingOperations.TranslationProvider*** property before the first translation request is made.
 
 # Notes About Usage
