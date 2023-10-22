@@ -22,8 +22,6 @@ namespace TranslationBindingTesting
         {
             #region Service Initialization
 
-            TranslationBindingOperations.TranslationProvider = new TranslationProvider();
-
             ServiceLocator.Instance.Logger = new Logger();
             ServiceLocator.Instance.ThemingService = new ThemingService();
 
@@ -90,13 +88,16 @@ namespace TranslationBindingTesting
 
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Settings.Default.Language);
 
+            TranslationBindingOperations.TranslationProvider = new TranslationProvider();
+            //TranslationBindingOperations.UseUICulture = true;
+
             /*
              * TranslationBindingOperations.ReadInTranslationsForCulture() needs to be called because the SettingsViewModel
              * needs access to the names of the cultures for the drop down in settings. 
              * 
              * The building of the drop down list could be moved to a loaded event and the need to manually load the translations
              * would go away. This is another option if the developer did not want to "preload" the translations. This method 
-             * would not need to ne called in the loaded event...only here. This is because by the time the loaded event occurred
+             * would not need to be called in the loaded event...only here. This is because by the time the loaded event occurred
              * the XAML processor/renderer would have loaded the first TranslationBinding instance...which would automatically
              * load the translations in.
              */

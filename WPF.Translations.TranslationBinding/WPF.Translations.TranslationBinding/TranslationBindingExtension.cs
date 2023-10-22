@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
@@ -22,7 +18,6 @@ namespace WPF.Translations.TranslationBinding
         private Binding parameter;
         private Binding parameter2;
         private Binding parameter3;
-        private object root;
         private DependencyProperty targetProperty;
         private string translationKey;
         private WeakReference weakTargetReference;
@@ -198,6 +193,7 @@ namespace WPF.Translations.TranslationBinding
                 throw new InvalidOperationException("TranslationBindingOperations.TranslationProvider is required.");
 
             // connect our instance to the signal that will tell us we need to retranslate
+            TranslationBindingOperations.CleanUp += TranslationBindingOperations_CleanUp;
             TranslationBindingOperations.CultureChanged += TranslationBindingOperations_CultureChanged;
 
             try
@@ -218,6 +214,21 @@ namespace WPF.Translations.TranslationBinding
             {
                 return InternalFallbackValue;
             }
+        }
+
+        private void TranslationBindingOperations_CleanUp(object sender, EventArgs e)
+        {
+            TranslationBindingOperations.CleanUp -= TranslationBindingOperations_CleanUp;
+            TranslationBindingOperations.CultureChanged -= TranslationBindingOperations_CultureChanged;
+
+            weakTargetReference.Target = null;
+            weakTargetReference = null;
+            targetProperty = null;
+            translationKey = null;
+            fallbackValue = null;
+            parameter = null;
+            parameter2 = null;
+            parameter3 = null;
         }
 
         private string Translate()
@@ -272,13 +283,7 @@ namespace WPF.Translations.TranslationBinding
             }
             else
             {
-                // when the culture changes if our target is not alive then just clean up
-                TranslationBindingOperations.CultureChanged -= TranslationBindingOperations_CultureChanged;
-
-                weakTargetReference = null;
-                targetProperty = null;
-                translationKey = null;
-                fallbackValue = null;
+                TranslationBindingOperations_CleanUp(null, EventArgs.Empty);
             }
         }
 

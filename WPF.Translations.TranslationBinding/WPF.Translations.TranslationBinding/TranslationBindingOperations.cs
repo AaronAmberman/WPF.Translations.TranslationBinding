@@ -76,6 +76,9 @@ namespace WPF.Translations.TranslationBinding
 
         #region Events
 
+        /// <summary>Occurs when a clean up request is made.</summary>
+        internal static event EventHandler CleanUp;
+
         /// <summary>
         /// Occurs when manually fired (FireCultureChanged) or whenever 
         /// CultureInfo.DefaultThreadCurrentCulture (or CultureInfo.DefaultThreadCurrentUICulture (if UseUICulture = true)) 
@@ -95,6 +98,15 @@ namespace WPF.Translations.TranslationBinding
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Instructs the TranslationBinding instance to inspect their weak reference and if the reference is no longer alive
+        /// then the binding removes connected event handlers that prevent garbage collection.
+        /// </summary>
+        public static void CleanUpOldBindings()
+        {
+            CleanUp?.Invoke(null, EventArgs.Empty);
+        }
 
         internal static string GetCurrentCultureName()
         {
