@@ -53,7 +53,7 @@ The API supports up to 3 parameters for translation bindings. Set the ***Paramet
                                         Parameter={Binding Version}}" />
 ```
 
-It is suggested to not listen to the TextChanged, or similar, to controls using a TranslationBinding that has a Parameter property assigned. The bound property will change multiple times while evaluating Parameter bindings.
+It is suggested to not listen to the TextChanged, or similar, on controls using a TranslationBinding that has a Parameter property assigned. The bound property will change multiple times while evaluating Parameter bindings.
 
 If something more complex is needed then it is update to the developer to retrieve the string manually and perform the custom format work then.
 
