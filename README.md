@@ -61,4 +61,73 @@ If something more complex is needed then it is up to the developer to retrieve t
 Translations can be pulled in code, after they are read in, by calling ***TranslationBindingOperations.GetTranslation(string key)***. If the key is not found then **null** is returned.
 
 # Examples
+Be sure to check out the testing WPF application project in the repository for code examples. We will cover some examples at a high level.
 
+### Implementing ITranslationProvider
+Make a simple translation provider that resource XAML resource dictionaries for translations...
+
+```XAML
+using WPF.Translations.TranslationBinding;
+
+internal class TranslationProvider : ITranslationProvider
+{
+    public IDictionary<string, string> GetTranslationsForCulture(string culture)
+    {
+        Dictionary<string, string> translations = new Dictionary<string, string>();
+
+        try
+        {
+            // we have multiple translation data sources
+            // we will go through the main applications translations first
+            string translationXaml = $"pack://application:,,,/Translations/Translations.{culture}.xaml";
+
+            ReadInTranslations(translationXaml, translations);
+        }
+        catch (Exception ex)
+        {
+            ServiceLocator.Instance.Logger.Error($"An error occurred attempting to load translations.{Environment.NewLine}{ex}");
+        }
+
+        try
+        {
+            // next get translations from satelite assemblies
+            string translationXaml = $"pack://application:,,,/CustomControlTesting;component/Translations/Translations.{culture}.xaml";
+
+            ReadInTranslations(translationXaml, translations);
+        }
+        catch (Exception ex)
+        {
+            ServiceLocator.Instance.Logger.Error($"An error occurred attempting to load translations from satelite assembly: CustomControlTesting.{Environment.NewLine}{ex}");
+        }
+
+        return translations;
+    }
+
+    private void ReadInTranslations(string resource, Dictionary<string, string> translations)
+    {
+        ResourceDictionary resourceDictionary = new ResourceDictionary();
+        resourceDictionary.Source = new Uri(resource);
+
+        foreach (string key in resourceDictionary.Keys)
+        {
+            // no duplicate keys
+            if (translations.ContainsKey(key)) continue;
+
+            translations.Add(key, resourceDictionary[key].ToString());
+        }
+    }
+}
+```
+
+As you can see from the simple example, we are reading translations from our main entry assembly/application and from satelite assemblies. This is because my XAML resouce dictionaries are marked as "Resource" under properties and so I can use pack application strings to access them. Please look up WPF pack URIs if you don't know and would like to know more.
+
+***This is amazing because now all those de, en, fr, it, zh-Hans, zh-Hant directories that have to get deployed with your applicaton can die!!!!!!!!!!! Translations can now be included natively in your application.*** This makes it so customers can't ruin your software by deleting "de" directory and wonder why they select German for the application it defaults back to English. :| Seriously... ... ...
+
+### Application StartUp Event in App.xaml.cs
+Subscribe to the **StartUp** event in ***App.xaml*** and set your TranslationProvider...
+
+```C#
+TranslationBindingOperations.TranslationProvider = new TranslationProvider();
+```
+
+Next deciding on whether or not you want to set the ***CultureInfo.DefaultThreadCurrentCulture*** or the ***CultureInfo.DefaultThreadCurrentUICulture*** or both. If you are going to set both then this point is moot, but if you are not setting both then this point matters. If you want to manage the UI thread culture then set ***TranslationBindingOperations.UseUICulture = true*** and set ***CultureInfo.DefaultThreadCurrentUICulture***. If you want to manage thread culture the set ***CultureInfo.DefaultThreadCurrentCulture*** and leave the default false value for ***TranslationBindingOperations.UseUICulture***.
