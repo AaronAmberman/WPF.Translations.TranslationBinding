@@ -26,7 +26,7 @@ There are a few things to note about the functionality of the API...
 - ***ITranslationProvider*** is required to be implemented by the developer. The interface implementation should be in the WPF application that has the need for translations. It should not be in satelite assemblies. There should be only one, meaning satelite assemblies should not all implement ***ITranslationProvider***...even if they have their own translation needs. That being said satelite assemblies can have their own translations. More in the examples section. Additional note, the API will throw an InvalidOperationException if a ***ITranslationProvider*** is not set on the ***TranslationBindingOperations.TranslationProvider*** property before the first translation request is made.
 
 # Notes About Usage
-- Clean up of old translation bindings happens when the ***TranslationBindingOperation.CultureInfo*** event is fired. This cannot be changed, modified or managed differently. Call ***TranslationBindingOperations.RefreshTranslations***, even if the culture did not change and the API will clean up old references.
+- Clean up of old translation bindings happens when the ***TranslationBindingOperation.CultureInfo*** event is fired or the developer calls ***TranslationBindingOperation.CleanUpOldBindings*** method. When changing languages the API will clean up old bindings so they can be garbage collected. If this needs to be forced then the developer can just call ***TranslationBindingOperation.CleanUpOldBindings***.
   - For example, if you open a Window that has TranslationBindings in it and then close that window, those TranslationBindings will sit in memory until clean up occurs.
 - **A TranslationBinding cannot be used in a Setter of a Style in XAML.** So for example...
 
