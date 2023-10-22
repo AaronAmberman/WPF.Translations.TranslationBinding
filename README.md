@@ -22,6 +22,18 @@ Parameters are supported, more on that below.
 # Requirements For Usage
 There are a few things to note about the functionality of the API...
 
-1. CultureInfo.DefaultThreadCurrentCulture or CultureInfo.DefaultThreadCurrentUICulture are used to track whether or not the culture changes. Use CultureInfo.DefaultThreadCurrentCulture if UseUICulture = false and use CultureInfo.DefaultThreadCurrentUICulture if UseUICulture = true. The developer is responsible for setting the CultureInfo property important to them, or both.
-2. ITranslationProvider is required to be implemented by the developer. The interface implementation should be in the WPF application that is the needs the translations. It should not be in satelite assemblies. There should be only one, meaning satelite assemblies should not all implement ITranslationProvider...even if they have their own translation needs. That being said satelite assemblies can have their own translations. More in the examples section. Additional note, the API will throw an InvalidOperationException if a ITranslationProvider is not set on the TranslationBindingOperations.TranslationProvider property before the first translation request is made.
-3. Clean up of old translation bindings happen when the TranslationBindingOperation.CultureInfo is fired. This cannot be changed, modified or managed differently. Call TranslationBindingOperations.RefreshTranslations, even if the culture did not change and the API will clean up old references.
+- CultureInfo.DefaultThreadCurrentCulture or CultureInfo.DefaultThreadCurrentUICulture are used to track whether or not the culture changes. Use CultureInfo.DefaultThreadCurrentCulture if UseUICulture = false and use CultureInfo.DefaultThreadCurrentUICulture if UseUICulture = true. The developer is responsible for setting the CultureInfo property important to them, or both.
+- ITranslationProvider is required to be implemented by the developer. The interface implementation should be in the WPF application that is the needs the translations. It should not be in satelite assemblies. There should be only one, meaning satelite assemblies should not all implement ITranslationProvider...even if they have their own translation needs. That being said satelite assemblies can have their own translations. More in the examples section. Additional note, the API will throw an InvalidOperationException if a ITranslationProvider is not set on the TranslationBindingOperations.TranslationProvider property before the first translation request is made.
+
+# Notes About Usage
+- Clean up of old translation bindings happen when the TranslationBindingOperation.CultureInfo is fired. This cannot be changed, modified or managed differently. Call TranslationBindingOperations.RefreshTranslations, even if the culture did not change and the API will clean up old references.
+  - For example, if you open a Window that has TranslationBindings in it and then close that window, those TranslationBindings will sit in memory until clean up occurs.
+- A TranslationBinding cannot be used in a Setter of a Style in XAML. So for example...
+```XAML
+<Style x:Key="TextBlockPropertyUsage" TargetType="TextBlock">
+    <Setter Property="Text" Value="{tb:TranslationBinding TranslationKey=Test, FallbackValue=Test fallback}" />
+</Style>
+```
+  - An error reaing sometihng like; TranslationBindingExtension is not valid for Setter.Value. The only supported MarkupExtension types are DynamicResourceExtension and BindingBase or derived types.
+  - A TranslationBinding can ***only*** be set on a DependencyObject.
+  - If you need this kind of functionality then I suggest checking out my other translation API mentioned above.
