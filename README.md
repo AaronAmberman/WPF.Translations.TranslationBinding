@@ -66,7 +66,7 @@ Be sure to check out the testing WPF application project in the repository for c
 ### Implementing ITranslationProvider
 Make a simple translation provider that resource XAML resource dictionaries for translations...
 
-```XAML
+```C#
 using WPF.Translations.TranslationBinding;
 
 internal class TranslationProvider : ITranslationProvider
