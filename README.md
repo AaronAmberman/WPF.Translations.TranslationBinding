@@ -55,7 +55,7 @@ The API supports up to 3 parameters for translation bindings. Set the ***Paramet
 
 It is suggested to not listen to the TextChanged, or similar, on controls using a TranslationBinding that has a Parameter property assigned. The bound property will change multiple times while evaluating Parameter bindings.
 
-If something more complex is needed then it is update to the developer to retrieve the string manually and perform the custom format work then.
+If something more complex is needed then it is up to the developer to retrieve the string manually and perform the custom format work then.
 
 # From Code
 Translations can be pulled in code, after they are read in, by calling ***TranslationBindingOperations.GetTranslation(string)***. If the key is not found then **null** is returned.
