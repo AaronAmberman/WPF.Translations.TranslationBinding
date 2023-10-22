@@ -137,7 +137,7 @@ After that you also need to decide to handle the ***TranslationBindingOperations
 Reminder that if you need to potentially show translations before any XAML is processed then remember to call ***TranslationBindingOperations.ReadInTranslationsForCulture()*** after setting *CultureInfo.DefaultThreadCurrentCulture* or *CultureInfo.DefaultThreadCurrentUICulture* or both. Then call ***TranslationBindingOperations.GetTranslation(string key)*** with the appropriate key.
 
 ### Multiple Translation Sources
-![image](https://github.com/AaronAmberman/WPF.Translations.TranslationBinding/assets/23512394/61c7d700-7645-4bfd-b53a-8395f8b24597)
+![image](https://user-images.githubusercontent.com/23512394/277197548-61c7d700-7645-4bfd-b53a-8395f8b24597.png)
 
 As you can see from the screen grab, it has also been mentioned already but you can have multiple translation data sources like this. It just depends on how you implement your translations. The example above along with the testing project in the repository demonstrate how to achieve this affect.
 
