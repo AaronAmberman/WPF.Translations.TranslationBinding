@@ -29,13 +29,33 @@ There are a few things to note about the functionality of the API...
 - Clean up of old translation bindings happens when the ***TranslationBindingOperation.CultureInfo*** event is fired. This cannot be changed, modified or managed differently. Call ***TranslationBindingOperations.RefreshTranslations***, even if the culture did not change and the API will clean up old references.
   - For example, if you open a Window that has TranslationBindings in it and then close that window, those TranslationBindings will sit in memory until clean up occurs.
 - **A TranslationBinding cannot be used in a Setter of a Style in XAML.** So for example...
+
 ```XAML
 <Style x:Key="TextBlockPropertyUsage" TargetType="TextBlock">
     <Setter Property="Text" Value="{tb:TranslationBinding TranslationKey=Test, FallbackValue=Test fallback}" />
 </Style>
 ```
+
 - An error reading something like; "TranslationBindingExtension is not valid for Setter.Value. The only supported MarkupExtension types are DynamicResourceExtension and BindingBase or derived types."
   - A TranslationBinding can ***only*** be set on a DependencyObject. So set it on the instance of the TextBlock using that style. That being said, a TranslationBinding can be used in a **ControlTemplate** that is used for a Template in a Setter. See example project.
   - If you need this kind of functionality then I suggest checking out my other translation API mentioned above.
 - Translations are a runtime thing not a design time thing. So if you want to see something in the designer then enter a ***FallbackValue***.
 - If the developer has the need to use a translation before the XAML processor/renderer processes the first TranslationBinding then the developer will have to call ***TranslationBindingOperations.ReadInTranslationsForCulture()*** manually for the API to read the translation. Call this after setting *CultureInfo.DefaultThreadCurrentCulture* or *CultureInfo.DefaultThreadCurrentUICulture* or both. The API will read in translations when the XAML processor/renderer processes the first instance of a TranslationBinding.
+
+It all sounds kind of complicated but it is really not that complicated.
+
+# Parameters
+The API supports up to 3 parameters for translation bindings. Set the ***Parameter***, ***Parameter2*** or ***Parameter3*** properties as needed. They Parameter properties have to be a binding in XAML. 
+
+```XAML
+<TextBlock VerticalAlignment="Top"
+           Text="{tb:TranslationBinding TranslationKey=Testing, FallbackValue=Testing parameters, 
+                                        Parameter={Binding Version}}" />
+```
+
+It is suggested to not listen to the TextChanged, or similar, to controls using a TranslationBinding that has a Parameter property assigned. The bound property will change multiple times while evaluating Parameter bindings.
+
+If something more complex is needed then it is update to the developer to retrieve the string manually and perform the custom format work then.
+
+# From Code
+Translations can be pulled in code, after they are read in, by calling ***TranslationBindingOperations.GetTranslation(string)***. If the key is not found then **null** is returned.
