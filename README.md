@@ -58,4 +58,7 @@ It is suggested to not listen to the TextChanged, or similar, on controls using 
 If something more complex is needed then it is up to the developer to retrieve the string manually and perform the custom format work then.
 
 # From Code
-Translations can be pulled in code, after they are read in, by calling ***TranslationBindingOperations.GetTranslation(string)***. If the key is not found then **null** is returned.
+Translations can be pulled in code, after they are read in, by calling ***TranslationBindingOperations.GetTranslation(string key)***. If the key is not found then **null** is returned.
+
+# Examples
+
