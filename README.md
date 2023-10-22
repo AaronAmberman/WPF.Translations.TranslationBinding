@@ -170,8 +170,8 @@ There is no default implementation of the ***ITranslationProvider*** so it is up
 </Style>
 ```
 
-```XAML
 ### Nested ControlTemplates
+```XAML
 <Style TargetType="{x:Type local:NestedTest}">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Template">
