@@ -64,7 +64,7 @@ Translations can be pulled in code, after they are read in, by calling ***Transl
 Be sure to check out the testing WPF application project in the repository for code examples. We will cover some examples at a high level.
 
 ### Implementing ITranslationProvider
-Make a simple translation provider that resource XAML resource dictionaries for translations...
+Make a simple translation provider that reads resource XAML resource dictionaries for translations...
 
 ```C#
 using WPF.Translations.TranslationBinding;
