@@ -35,7 +35,7 @@ There are a few things to note about the functionality of the API...
 </Style>
 ```
 - An error reading something like; "TranslationBindingExtension is not valid for Setter.Value. The only supported MarkupExtension types are DynamicResourceExtension and BindingBase or derived types."
-  - A TranslationBinding can ***only*** be set on a DependencyObject. So set it on the instance of the TextBlock using that style.
+  - A TranslationBinding can ***only*** be set on a DependencyObject. So set it on the instance of the TextBlock using that style. That being said, a TranslationBinding can be used in a **ControlTemplate** that is used for a Template in a Setter. See example project.
   - If you need this kind of functionality then I suggest checking out my other translation API mentioned above.
 - Translations are a runtime thing not a design time thing. So if you want to see something in the designer then enter a ***FallbackValue***.
 - If the developer has the need to use a translation before the XAML processor/renderer processes the first TranslationBinding then the developer will have to call ***TranslationBindingOperations.ReadInTranslationsForCulture()*** manually for the API to read the translation. Call this after setting *CultureInfo.DefaultThreadCurrentCulture* or *CultureInfo.DefaultThreadCurrentUICulture* or both. The API will read in translations when the XAML processor/renderer processes the first instance of a TranslationBinding.
