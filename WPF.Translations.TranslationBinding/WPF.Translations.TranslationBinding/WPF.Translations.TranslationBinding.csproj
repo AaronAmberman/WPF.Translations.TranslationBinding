@@ -5,7 +5,7 @@
     <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Aaron Amberman</Authors>
     <Description>A {TranslationBinding} for XAML.</Description>
     <Copyright>© Aaron Amberman 2023</Copyright>
@@ -15,6 +15,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>WPF translation;WPF translation binding;translation binding;translation;translations</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
