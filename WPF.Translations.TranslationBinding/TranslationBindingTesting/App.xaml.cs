@@ -104,12 +104,6 @@ namespace TranslationBindingTesting
             TranslationBindingOperations.ReadInTranslationsForCulture();
             TranslationBindingOperations.RefreshAutomatically = true;
 
-            // set translations
-            //ServiceLocator.Instance.MainWindowViewModel.Translations = new Translation(new ResourceDictionary
-            //{
-            //    Source = new Uri($"pack://application:,,,/Translations/Translations.{Settings.Default.Language}.xaml")
-            //}, new ResourceDictionaryTranslationDataProvider(), false);
-
             // need translations for view model
             mainWindowViewModel.SettingsViewModel = new SettingsViewModel();
             mainWindowViewModel.SettingsViewModel.SetLanguage(Settings.Default.Language);
@@ -135,10 +129,6 @@ namespace TranslationBindingTesting
             try
             {
                 ServiceLocator.Instance.Logger.Error($"An unhandled exception occurred. Details:{Environment.NewLine}{e.Exception}");
-
-                //MessageBox.Show(ServiceLocator.Instance.MainWindowViewModel?.Translations.UnhandledErrorMessage ?? "Unhandled exception occurred. We have logged the issue.",
-                //    ServiceLocator.Instance.MainWindowViewModel?.Translations.UnhandledErrorTitle ?? "Unhandled Exception",
-                //    MessageBoxButton.OK, MessageBoxImage.Error);
 
                 string message = TranslationBindingOperations.GetTranslation("UnhandledErrorMessage");
                 string title = TranslationBindingOperations.GetTranslation("UnhandledErrorTitle");
